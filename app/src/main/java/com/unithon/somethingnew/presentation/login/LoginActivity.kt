@@ -1,31 +1,36 @@
 package com.unithon.somethingnew.presentation.login
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.navercorp.nid.NaverIdLoginSDK
-import com.navercorp.nid.oauth.OAuthLoginCallback
-import com.unithon.somethingnew.R
-import com.unithon.somethingnew.databinding.ActivityLoginBinding
-
+import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
-import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.OAuthLoginCallback
+import com.unithon.somethingnew.R
+import com.unithon.somethingnew.data.network.MainApi
+import com.unithon.somethingnew.databinding.ActivityLoginBinding
+import com.unithon.somethingnew.presentation.base.BaseActivity
+import com.unithon.somethingnew.presentation.main.MainActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
+    BaseActivity<ActivityLoginBinding>() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var preferenceManager: PreferenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        preferenceManager = PreferenceManager(this)
 
         NaverIdLoginSDK.initialize(
             this,
@@ -44,12 +49,10 @@ class LoginActivity : AppCompatActivity() {
         binding.KakaoLoginBtn.setOnClickListener {
             kakaoLogin()
         }
-
-
     }
 
     //카카오톡 로그인 callback
-    val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+    private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(ContentValues.TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
@@ -57,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun kakaoLogin() {
+    private fun kakaoLogin() {
         //카카오 hash 키 등록을 위한 log
         // Log.d("id", Utility.getKeyHash(this))
 
@@ -76,7 +79,17 @@ class LoginActivity : AppCompatActivity() {
                     // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                 } else if (token != null) {
-                    Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+                    preferenceManager.putAccessToken(token.accessToken) // Access Token을 저장합니다.
+                    Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공 ${preferenceManager.getAccessToken()}")
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val isLoginSuccess = MainApi().login()
+                        if (isLoginSuccess) {
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                        } else {
+                            showSnackBar("로그인에 실패하였어요!")
+                        }
+                    }
                 }
             }
         } else {
@@ -92,6 +105,17 @@ class LoginActivity : AppCompatActivity() {
         override fun onSuccess() {
             // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
             // 토큰 -> NaverIdLoginSDK.getAccessToken()
+            NaverIdLoginSDK.getAccessToken()?.let { preferenceManager.putAccessToken(it) }
+            Log.i(ContentValues.TAG, "네이버로 로그인 성공 ${preferenceManager.getAccessToken()}")
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val isLoginSuccess = MainApi().login()
+                if (isLoginSuccess) {
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                } else {
+                    showSnackBar("로그인에 실패하였어요!")
+                }
+            }
         }
 
         override fun onFailure(httpStatus: Int, message: String) {
