@@ -170,7 +170,7 @@ class PreferenceManager(
         // 인증 타입
         // Authorization: <type> <credentials>
         val credentialsType = NetworkCommons.CREDENTIAL_TYPE
-        return "$credentialsType ${prefs.getString(KEY_ACCESS_TOKEN, null)}"
+        return "${prefs.getString(KEY_ACCESS_TOKEN, null)}"
     }
 
     fun putRefreshToken(refreshToken: String) {
@@ -180,7 +180,7 @@ class PreferenceManager(
 
     fun getRefreshToken(): String {
         val credentialsType = NetworkCommons.CREDENTIAL_TYPE
-        return "$credentialsType ${prefs.getString(KEY_REFRESH_TOKEN, null)}"
+        return "$${prefs.getString(KEY_REFRESH_TOKEN, null)}"
     }
 
     fun removedToken() {

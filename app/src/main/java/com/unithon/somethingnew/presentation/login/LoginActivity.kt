@@ -43,8 +43,6 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
             buttonOAuthLoginImg.setOAuthLoginCallback(oauthLoginCallback)
         }
 
-        //카카오톡 api 초기화
-        KakaoSdk.init(this, getString(R.string.KAKAO_NATIVE_APP_KEY))
 
         binding.KakaoLoginBtn.setOnClickListener {
             kakaoLogin()
@@ -83,8 +81,9 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
                     Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공 ${preferenceManager.getAccessToken()}")
 
                     CoroutineScope(Dispatchers.IO).launch {
-                        val isLoginSuccess = MainApi().login()
+                        val isLoginSuccess = MainApi().login(preferenceManager.getAccessToken())
                         if (isLoginSuccess) {
+                            finish()
                             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         } else {
                             showSnackBar("로그인에 실패하였어요!")
@@ -109,8 +108,9 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
             Log.i(ContentValues.TAG, "네이버로 로그인 성공 ${preferenceManager.getAccessToken()}")
 
             CoroutineScope(Dispatchers.IO).launch {
-                val isLoginSuccess = MainApi().login()
+                val isLoginSuccess = MainApi().login(preferenceManager.getAccessToken())
                 if (isLoginSuccess) {
+                    finish()
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 } else {
                     showSnackBar("로그인에 실패하였어요!")

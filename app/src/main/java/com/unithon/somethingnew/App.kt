@@ -3,6 +3,7 @@ package com.unithon.somethingnew
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import com.kakao.sdk.common.KakaoSdk
 import com.unithon.somethingnew.di.modules.networkModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -19,6 +20,9 @@ class App : Application() {
         super.onCreate()
         instance = this
         Timber.plant(Timber.DebugTree())
+
+        //카카오톡 api 초기화
+        KakaoSdk.init(this, getString(R.string.kakao_native_key))
 
         startKoin {
             androidLogger(Level.DEBUG)
