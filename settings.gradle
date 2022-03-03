@@ -11,4 +11,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "UnithonProject"
 include ':app'
-include ':oauth-5.0.1'

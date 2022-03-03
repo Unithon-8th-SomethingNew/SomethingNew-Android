@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -32,9 +34,14 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
+    def roomVersion = "2.3.0"
+    def lifecycle_version = "2.4.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -61,9 +68,38 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
     implementation 'com.airbnb.android:lottie:3.1.0'
 
+
+    // room
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
     implementation "com.kakao.sdk:v2-user:2.8.6" // 카카오 로그인
     implementation "com.kakao.sdk:v2-talk:2.8.6" // 친구, 메시지(카카오톡)
     implementation "com.kakao.sdk:v2-story:2.8.6" // 카카오스토리
     implementation "com.kakao.sdk:v2-link:2.8.6" // 메시지(카카오링크)
     implementation "com.kakao.sdk:v2-navi:2.8.6" // 카카오내비
+
+
+    // Koin Core features
+    //코어
+    implementation 'org.koin:koin-core:2.0.0-rc-2'
+    //안드로이드 context 주입, 안드로이드 log 지원 기능을 제공
+    implementation 'org.koin:koin-android:2.0.1'
+    //LifecycleOwner 들에서 scope 생성-삭제를 자동화하는 기능을 제공
+    implementation 'org.koin:koin-androidx-scope:2.0.0-rc-2'
+    //AAC의 ViewModel 을 Actiity나 Fragment에서 손쉽게 주입받을 수 있는 기능을 제공
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
+    // Koin Test features
+    testImplementation "io.insert-koin:koin-test:3.1.4"
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 }

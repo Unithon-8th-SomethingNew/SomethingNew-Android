@@ -2,7 +2,6 @@
     <string name="app_name">UnithonProject</string>
 
 
-
     <!-- Secret Id, Key -->
     <string name="naver_client_id" translatable="false">w2BdWoVmI3yOvwul8jnm</string>
     <string name="naver_client_secret" translatable="false">Lr7xYFBrFT</string>
