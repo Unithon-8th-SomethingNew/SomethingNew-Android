@@ -1,8 +1,6 @@
 package com.unithon.somethingnew.data.network.base
 
 import com.unithon.somethingnew.data.network.base.NetworkCommons.TIME_OUT
-import com.unithon.somethingnew.data.network.base.NetworkCommons
-import com.unithon.somethingnew.data.network.interceptor.AccessTokenInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -31,7 +29,6 @@ internal fun provideGsonConverterFactory(): GsonConverterFactory {
 // Access Token 인터셉터를 포함한 OkHttpClient
 internal fun buildOkHttpClientWithAccessToken(
     httpLogInterceptor: HttpLoggingInterceptor,
-    authTokenInterceptor: AccessTokenInterceptor
 ): OkHttpClient {
 
     val builder = OkHttpClient.Builder()
@@ -40,7 +37,7 @@ internal fun buildOkHttpClientWithAccessToken(
         .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
         .callTimeout(TIME_OUT, TimeUnit.SECONDS)
         .addInterceptor(httpLogInterceptor) // Http 통신 Log를 출력하기 위한 Interceptor
-        .addInterceptor(authTokenInterceptor) // Token 관련 Interceptor
+
 
 
     return builder.build()

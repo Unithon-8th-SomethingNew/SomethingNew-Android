@@ -3,8 +3,9 @@ package com.unithon.somethingnew.data.network
 import com.unithon.somethingnew.data.network.response.LoginResponse
 import retrofit2.Response
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
-    @POST("/login/oauth2")
-    fun login(): Response<LoginResponse>
+    @POST("/auth/kakao")
+    suspend fun login(@Query("token") token: String): Response<LoginResponse>
 }
