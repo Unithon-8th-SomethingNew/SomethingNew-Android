@@ -4,9 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="27"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="27" />
+    <!-- 인터넷연결, 정확한위치, 대략적인 위치 권한-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".App"
@@ -17,15 +21,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UnithonProject"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".presentation.main.MainActivity"
-            android:exported="false" />
+            android:exported="false">
+        </activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="4cpvbfbtu4" />
-            android:exported="true">
-        </activity>
 
         <!--
                 <meta-data
@@ -38,6 +42,7 @@
             android:name="com.naver.sdk.clientName"
             android:value="@string/client_name" />
         -->
+
         <activity
             android:name=".presentation.login.LoginActivity"
             android:exported="true"
@@ -49,6 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- 카카오톡 로그인 -->
+
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -70,8 +76,8 @@
             android:value="@string/kakao_native_key" />
 
         <service
-            android:exported="false"
-            android:name=".presentation.utility.FirebaseMessagingServiceUtil">
+            android:name=".presentation.utility.FirebaseMessagingServiceUtil"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

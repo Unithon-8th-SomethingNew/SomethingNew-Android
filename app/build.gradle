@@ -42,6 +42,7 @@ android {
 
 dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
+    implementation 'com.google.android.gms:play-services-tasks:18.0.1'
     def roomVersion = "2.3.0"
     def lifecycle_version = "2.4.0"
 
@@ -82,6 +83,9 @@ dependencies {
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
+    //location
+    implementation "com.google.android.gms:play-services-location:19.0.1"
 
     implementation "com.kakao.sdk:v2-user:2.8.6" // 카카오 로그인
     implementation "com.kakao.sdk:v2-talk:2.8.6" // 친구, 메시지(카카오톡)
