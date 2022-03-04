@@ -4,6 +4,7 @@ import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_USER_NAME
 import com.unithon.somethingnew.App
 import com.unithon.somethingnew.data.network.base.BaseApi
+import com.unithon.somethingnew.data.network.response.LocationResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -36,4 +37,5 @@ class MainApi : BaseApi() {
             false
         }
     }
+
 }
