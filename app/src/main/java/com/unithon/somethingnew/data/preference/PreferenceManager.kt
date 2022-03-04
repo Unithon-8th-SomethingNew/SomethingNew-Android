@@ -23,6 +23,8 @@ class PreferenceManager(
         const val KEY_ACCESS_TOKEN = "ACCESS_TOKEN"
         const val KEY_REFRESH_TOKEN = "REFRESH_TOKEN"
 
+        const val KEY_FCM_TOKEN = "FCM_TOKEN"
+
         const val KEY_USER_NAME = "KEY_USER_NAME"
         const val KEY_EMAIL_NAME = "KEY_EMAIL_NAME"
     }
@@ -181,6 +183,18 @@ class PreferenceManager(
     fun getRefreshToken(): String {
         val credentialsType = NetworkCommons.CREDENTIAL_TYPE
         return "$${prefs.getString(KEY_REFRESH_TOKEN, null)}"
+    }
+
+    fun putFcmAccessToken(fcmToken: String) {
+        editor.putString(KEY_FCM_TOKEN, fcmToken)
+        editor.commit()
+    }
+
+    fun getFcmAccessToken(): String {
+        // 인증 타입
+        // Authorization: <type> <credentials>
+        val credentialsType = NetworkCommons.CREDENTIAL_TYPE
+        return "${prefs.getString(KEY_FCM_TOKEN, null)}"
     }
 
     fun removedToken() {
