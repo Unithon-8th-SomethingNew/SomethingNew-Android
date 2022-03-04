@@ -39,9 +39,11 @@ class App : Application() {
 
     companion object {
 
-        @SuppressLint("StaticFieldLeak")
-        lateinit var instance: App
-            private set
+        var instance: App? = null
+        fun context(): Context {
+            return instance!!.applicationContext
+        }
+
     }
 
 }

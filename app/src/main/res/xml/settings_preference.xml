@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="기본설정"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            android:key="call_enable"
+            android:summary="통화 가능 여부를 설정합니다."
+            android:title="통화 가능 여부"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            android:key="location"
+            android:title="통화 가능지역"
+            android:summary="통화 가능지역을 설정합니다."
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="기타"
+        app:iconSpaceReserved="false">
+        <Preference
+            android:title="어플리케이션 정보"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
