@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.snackbar.Snackbar
-import com.naver.maps.map.OnMapReadyCallback
 
 
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {

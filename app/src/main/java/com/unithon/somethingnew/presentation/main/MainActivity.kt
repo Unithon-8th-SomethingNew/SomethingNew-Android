@@ -1,13 +1,8 @@
 package com.unithon.somethingnew.presentation.main
 
-import android.Manifest
-import android.content.pm.PackageManager
+
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
-import androidx.annotation.UiThread
-import androidx.core.app.ActivityCompat
-import androidx.lifecycle.Transformations.map
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
