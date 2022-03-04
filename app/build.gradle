@@ -95,7 +95,6 @@ dependencies {
     implementation "com.kakao.sdk:v2-link:2.8.6" // 메시지(카카오링크)
     implementation "com.kakao.sdk:v2-navi:2.8.6" // 카카오내비
 
-
     // Koin Core features
     //코어
     implementation 'org.koin:koin-core:2.0.0-rc-2'
