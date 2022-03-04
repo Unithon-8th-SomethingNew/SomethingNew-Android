@@ -51,7 +51,7 @@ class CallActivity(override val layoutResId: Int = R.layout.activity_call) :
                     .serviceId("SERVICEID1")    // RemoteMonster 사이트에서 등록했던 당신의 id를 입력하세요.
                     .key("1234567890")    // RemoteMonster로부터 받은 당신의 key를 입력하세요.
                     .build()
-                val channelId = "unithon"//intent.getStringExtra("channelId")
+                val channelId = intent.getStringExtra("channelId")
 
                 remonCall?.connect(channelId)
                 remonCall?.onClose {

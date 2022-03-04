@@ -94,8 +94,7 @@ dependencies {
     implementation "com.kakao.sdk:v2-talk:2.8.6" // 친구, 메시지(카카오톡)
     implementation "com.kakao.sdk:v2-story:2.8.6" // 카카오스토리
     implementation "com.kakao.sdk:v2-link:2.8.6" // 메시지(카카오링크)
-    implementation "com.kakao.sdk:v2-navi:2.8.6" // 카카오내비
-
+    implementation "com.kakao.sdk:v2-navi:2.8.6" // 카카오내비x
     // Koin Core features
     //코어
     implementation 'org.koin:koin-core:2.0.0-rc-2'
@@ -120,5 +119,5 @@ dependencies {
     implementation 'gun0912.ted:tedpermission:2.2.3'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
 }
