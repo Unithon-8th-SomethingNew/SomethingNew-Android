@@ -7,8 +7,16 @@ import retrofit2.http.Query
 
 interface ApiService {
     @POST("/auth/kakao")
-    suspend fun loginKakao(@Query("token") accessToken: String, @Query("fcmtoken") fcmToken: String): Response<LoginResponse>
+    suspend fun loginKakao(
+        @Query("token") accessToken: String,
+        @Query("fcmtoken") fcmToken: String
+    ): Response<LoginResponse>
 
     @POST("/auth/naver")
-    suspend fun loginNaver(@Query("token") accessToken: String, @Query("fcmtoken") fcmToken: String): Response<LoginResponse>
+    suspend fun loginNaver(
+        @Query("token") accessToken: String,
+        @Query("fcmtoken") fcmToken: String
+    ): Response<LoginResponse>
+
+
 }
