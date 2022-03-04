@@ -37,10 +37,6 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /** 서버 동작시에는 삭제해야합니다*/
-        finish()
-        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-
         job = Job()
         preferenceManager = PreferenceManager(this)
 
