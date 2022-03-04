@@ -1,14 +1,20 @@
 package com.unithon.somethingnew.presentation.call
 
 import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.remotemonster.sdk.RemonCall
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.databinding.ActivityCallBinding
 import com.unithon.somethingnew.presentation.base.BaseActivity
+import com.unithon.somethingnew.presentation.utility.setStatusBarTransparent
 
 
 class CallActivity(override val layoutResId: Int = R.layout.activity_call) :
@@ -20,6 +26,9 @@ class CallActivity(override val layoutResId: Int = R.layout.activity_call) :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON) // 화면 안꺼지도록 설정
+
+        setTheme(R.style.FullScreen)
+        setStatusBarTransparent(this, binding.rootView)
 
         val permissionListener: PermissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
@@ -56,9 +65,21 @@ class CallActivity(override val layoutResId: Int = R.layout.activity_call) :
             .setDeniedMessage("접근 거부하셨습니다.\n[설정] - [권한]에서 권한을 허용해주세요.")
             .setPermissions(
                 Manifest.permission.CAMERA,
-                Manifest.permission.RECORD_AUDIO
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.BLUETOOTH
             )
             .check()
+
+        with(binding) {
+            backBtn.setOnClickListener {
+                showToast("통화가 종료되었어요.")
+                remonCall?.close()
+            }
+            callCloseBtn.setOnClickListener {
+                showToast("통화가 종료되었어요.")
+                remonCall?.close()
+            }
+        }
 
     }
 

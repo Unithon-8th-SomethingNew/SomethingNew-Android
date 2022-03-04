@@ -27,6 +27,8 @@ class PreferenceManager(
 
         const val KEY_USER_NAME = "KEY_USER_NAME"
         const val KEY_EMAIL_NAME = "KEY_EMAIL_NAME"
+
+        const val KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
     }
 
     private fun getPreferences(context: Context): SharedPreferences {

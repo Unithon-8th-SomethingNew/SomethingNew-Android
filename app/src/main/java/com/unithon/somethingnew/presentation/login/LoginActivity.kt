@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
+import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_LOGIN_TYPE
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.auth.model.OAuthToken
@@ -15,14 +16,11 @@ import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
 import com.unithon.somethingnew.R
-import com.unithon.somethingnew.data.network.MainApi
 import com.unithon.somethingnew.databinding.ActivityLoginBinding
 import com.unithon.somethingnew.presentation.base.BaseActivity
-import com.unithon.somethingnew.presentation.main.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
@@ -87,6 +85,7 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
                 } else if (token != null) {
 
                     preferenceManager.putAccessToken(token.accessToken) // Access Token을 저장합니다.
+                    preferenceManager.setString(KEY_LOGIN_TYPE, "KAKAO")
                     Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공 ${preferenceManager.getAccessToken()}")
 
                     getFCMToken("KAKAO")
@@ -106,6 +105,7 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
             // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
             // 토큰 -> NaverIdLoginSDK.getAccessToken()
             NaverIdLoginSDK.getAccessToken()?.let { preferenceManager.putAccessToken(it) }
+            preferenceManager.setString(KEY_LOGIN_TYPE, "NAVER")
             Log.i(ContentValues.TAG, "네이버로 로그인 성공 ${preferenceManager.getAccessToken()}")
             getFCMToken("NAVER")
         }
@@ -141,32 +141,11 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
             Log.d("TAG", "FCM Token is ${preferenceManager.getFcmAccessToken()}")
 
             if (loginType == "KAKAO") {
-                launch(Dispatchers.IO) {
-                    val isLoginSuccess =
-                        MainApi().loginKakao(
-                            preferenceManager.getAccessToken(),
-                            preferenceManager.getFcmAccessToken()
-                        )
-                    if (isLoginSuccess) {
-                        finish()
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    } else {
-                        showSnackBar("로그인에 실패하였어요!")
-                    }
-                }
+                finish()
+                startActivity(Intent(this@LoginActivity, LocationActivity::class.java))
             } else {
-                launch(Dispatchers.IO) {
-                    val isLoginSuccess = MainApi().loginNaver(
-                        preferenceManager.getAccessToken(),
-                        preferenceManager.getFcmAccessToken()
-                    )
-                    if (isLoginSuccess) {
-                        finish()
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    } else {
-                        showSnackBar("로그인에 실패하였어요!")
-                    }
-                }
+                finish()
+                startActivity(Intent(this@LoginActivity, LocationActivity::class.java))
             }
 
         })
