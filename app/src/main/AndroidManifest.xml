@@ -2,11 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unithon.somethingnew">
 
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="27"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="27" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
 
     <application
         android:name=".App"
@@ -18,9 +27,17 @@
         android:theme="@style/Theme.UnithonProject"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".presentation.call.CallActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:exported="true"></activity>
         <!--
                 <meta-data
             android:name="com.naver.sdk.clientId"
@@ -28,8 +45,7 @@
         <meta-data
             android:name="com.naver.sdk.clientSecret"
             android:value="@string/naver_client_secret" />
-        <meta-data
-            android:name="com.naver.sdk.clientName"
+        <meta-data android:name="com.naver.sdk.clientName"
             android:value="@string/client_name" />
         -->
         <activity
@@ -37,11 +53,6 @@
             android:exported="true"
             android:theme="@style/Theme.UnithonProject.NoActionBar">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity> <!-- 카카오톡 로그인 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
@@ -64,8 +75,8 @@
             android:value="@string/kakao_native_key" />
 
         <service
-            android:exported="false"
-            android:name=".presentation.utility.FirebaseMessagingServiceUtil">
+            android:name=".presentation.utility.FirebaseMessagingServiceUtil"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
