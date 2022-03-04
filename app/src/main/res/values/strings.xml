@@ -9,4 +9,6 @@
 
     <string name="kakao_app_key">kakaoa0a716cff82decd0084bf0dd0348332f</string>
     <string name="kakao_native_key">a0a716cff82decd0084bf0dd0348332f</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
