@@ -19,8 +19,14 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".presentation.main.MainActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="4cpvbfbtu4" />
             android:exported="true">
         </activity>
+
         <!--
                 <meta-data
             android:name="com.naver.sdk.clientId"
