@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.Toast
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
@@ -20,16 +19,23 @@ import com.unithon.somethingnew.presentation.base.BaseActivity
 import com.unithon.somethingnew.presentation.main.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
-    BaseActivity<ActivityLoginBinding>() {
+    BaseActivity<ActivityLoginBinding>(), CoroutineScope {
+
+    lateinit var job: Job
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     private lateinit var preferenceManager: PreferenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        job = Job()
         preferenceManager = PreferenceManager(this)
 
         NaverIdLoginSDK.initialize(
@@ -80,8 +86,8 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
                     preferenceManager.putAccessToken(token.accessToken) // Access Token을 저장합니다.
                     Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공 ${preferenceManager.getAccessToken()}")
 
-                    CoroutineScope(Dispatchers.IO).launch {
-                        val isLoginSuccess = MainApi().login(preferenceManager.getAccessToken())
+                    launch(Dispatchers.IO) {
+                        val isLoginSuccess = MainApi().loginKakao(preferenceManager.getAccessToken())
                         if (isLoginSuccess) {
                             finish()
                             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
@@ -107,8 +113,8 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
             NaverIdLoginSDK.getAccessToken()?.let { preferenceManager.putAccessToken(it) }
             Log.i(ContentValues.TAG, "네이버로 로그인 성공 ${preferenceManager.getAccessToken()}")
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val isLoginSuccess = MainApi().login(preferenceManager.getAccessToken())
+            launch(Dispatchers.IO) {
+                val isLoginSuccess = MainApi().loginNaver(preferenceManager.getAccessToken())
                 if (isLoginSuccess) {
                     finish()
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
@@ -126,5 +132,10 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
         override fun onError(errorCode: Int, message: String) {
             onFailure(errorCode, message)
         }
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
     }
 }
