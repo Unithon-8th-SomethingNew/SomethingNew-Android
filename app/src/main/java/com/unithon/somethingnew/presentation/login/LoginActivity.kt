@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -83,18 +85,11 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
                     // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                 } else if (token != null) {
+
                     preferenceManager.putAccessToken(token.accessToken) // Access Token을 저장합니다.
                     Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공 ${preferenceManager.getAccessToken()}")
 
-                    launch(Dispatchers.IO) {
-                        val isLoginSuccess = MainApi().loginKakao(preferenceManager.getAccessToken())
-                        if (isLoginSuccess) {
-                            finish()
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                        } else {
-                            showSnackBar("로그인에 실패하였어요!")
-                        }
-                    }
+                    getFCMToken("KAKAO")
                 }
             }
         } else {
@@ -112,16 +107,7 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
             // 토큰 -> NaverIdLoginSDK.getAccessToken()
             NaverIdLoginSDK.getAccessToken()?.let { preferenceManager.putAccessToken(it) }
             Log.i(ContentValues.TAG, "네이버로 로그인 성공 ${preferenceManager.getAccessToken()}")
-
-            launch(Dispatchers.IO) {
-                val isLoginSuccess = MainApi().loginNaver(preferenceManager.getAccessToken())
-                if (isLoginSuccess) {
-                    finish()
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                } else {
-                    showSnackBar("로그인에 실패하였어요!")
-                }
-            }
+            getFCMToken("NAVER")
         }
 
         override fun onFailure(httpStatus: Int, message: String) {
@@ -137,5 +123,54 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
     override fun onDestroy() {
         job.cancel()
         super.onDestroy()
+    }
+
+    private fun getFCMToken(loginType: String): String? {
+        var token: String? = null
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            token = task.result
+            preferenceManager.putFcmAccessToken(token!!)
+
+            // Log and toast
+            Log.d("TAG", "FCM Token is ${preferenceManager.getFcmAccessToken()}")
+
+            if (loginType == "KAKAO") {
+                launch(Dispatchers.IO) {
+                    val isLoginSuccess =
+                        MainApi().loginKakao(
+                            preferenceManager.getAccessToken(),
+                            preferenceManager.getFcmAccessToken()
+                        )
+                    if (isLoginSuccess) {
+                        finish()
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    } else {
+                        showSnackBar("로그인에 실패하였어요!")
+                    }
+                }
+            } else {
+                launch(Dispatchers.IO) {
+                    val isLoginSuccess = MainApi().loginNaver(
+                        preferenceManager.getAccessToken(),
+                        preferenceManager.getFcmAccessToken()
+                    )
+                    if (isLoginSuccess) {
+                        finish()
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    } else {
+                        showSnackBar("로그인에 실패하였어요!")
+                    }
+                }
+            }
+
+        })
+
+        return token
     }
 }

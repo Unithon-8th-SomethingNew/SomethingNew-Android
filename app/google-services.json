@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1078237469205",
+    "project_id": "unithon8th",
+    "storage_bucket": "unithon8th.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078237469205:android:ab2c0fa1debd2c21a7cc1c",
+        "android_client_info": {
+          "package_name": "com.unithon.somethingnew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078237469205-9jc92sei77qsdsmdp4buv7olv9o4v1fc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unithon.somethingnew",
+            "certificate_hash": "c809c21e49670372bfaf7b6ce00d6e3458b4cfd5"
+          }
+        },
+        {
+          "client_id": "1078237469205-kan83q4ra3ujavg2901ansubl8sm3nbt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unithon.somethingnew",
+            "certificate_hash": "d18bf67d96b335487062016c934181218c91da16"
+          }
+        },
+        {
+          "client_id": "1078237469205-jbvtju16k8ian7foep99n7qv2fj916ud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIPFvK8pUc3A-75D6uaYkBe3q72M9t_0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078237469205-jbvtju16k8ian7foep99n7qv2fj916ud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
