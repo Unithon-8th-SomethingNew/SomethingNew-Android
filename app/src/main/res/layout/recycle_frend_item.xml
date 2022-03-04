@@ -12,9 +12,9 @@
         android:layout_gravity="center"
         android:layout_marginEnd="20dp"
         android:background="@android:color/transparent"
-        android:src="@tools:sample/avatars"
-        app:civ_border_color="#FFFFFF"
-        app:civ_border_overlay="true"
+        android:src="@color/black"
+        app:civ_border_color="#000000"
+        app:civ_border_overlay="false"
         app:civ_border_width="1dp" />
 
     <LinearLayout
