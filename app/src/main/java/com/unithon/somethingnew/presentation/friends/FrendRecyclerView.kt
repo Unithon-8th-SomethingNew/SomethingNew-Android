@@ -5,10 +5,13 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
+import android.content.Intent
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat.startActivity
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.data.network.response.FriendResponse
+import com.unithon.somethingnew.presentation.login.LocationActivity
 import java.util.ArrayList
 
 /**
