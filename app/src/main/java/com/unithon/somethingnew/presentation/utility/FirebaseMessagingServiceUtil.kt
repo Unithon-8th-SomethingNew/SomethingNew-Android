@@ -28,6 +28,7 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
      * 디바이스가 FCM을 통해서 메시지를 받으면 수행된다.
      * @remoteMessage: FCM에서 보낸 데이터 정보들을 저장한다.
      */
+    @SuppressLint("LongLogTag")
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
@@ -45,10 +46,15 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
      */
     private fun sendNotification(remoteMessage: RemoteMessage) {
         val id = 0
-        var title = remoteMessage.notification!!.title
+        var name = remoteMessage.notification!!.title?.split("-")?.get(0)
         var body = remoteMessage.notification!!.body
+        var uid = remoteMessage.notification!!.title?.split("-")?.get(1)
+        var profileUrl = remoteMessage.notification!!.title?.split("-")?.get(2)
 
         var intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("channelId", uid)
+        intent.putExtra("name", name)
+        intent.putExtra("profileUrl", profileUrl)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, id, intent, PendingIntent.FLAG_ONE_SHOT)
 
@@ -56,7 +62,7 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(title)
+            .setContentTitle("${name}님이 찾아왔어요!")
             .setContentText(body)
             .setAutoCancel(true)
             .setSound(soundUri)

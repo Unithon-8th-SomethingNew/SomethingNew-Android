@@ -18,6 +18,7 @@ import com.navercorp.nid.oauth.OAuthLoginCallback
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.databinding.ActivityLoginBinding
 import com.unithon.somethingnew.presentation.base.BaseActivity
+import com.unithon.somethingnew.presentation.main.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -88,7 +89,7 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
                     preferenceManager.setString(KEY_LOGIN_TYPE, "KAKAO")
                     Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공 ${preferenceManager.getAccessToken()}")
 
-                    getFCMToken("KAKAO")
+                    getFcmToken()
                 }
             }
         } else {
@@ -107,7 +108,7 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
             NaverIdLoginSDK.getAccessToken()?.let { preferenceManager.putAccessToken(it) }
             preferenceManager.setString(KEY_LOGIN_TYPE, "NAVER")
             Log.i(ContentValues.TAG, "네이버로 로그인 성공 ${preferenceManager.getAccessToken()}")
-            getFCMToken("NAVER")
+            getFcmToken()
         }
 
         override fun onFailure(httpStatus: Int, message: String) {
@@ -125,7 +126,7 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
         super.onDestroy()
     }
 
-    private fun getFCMToken(loginType: String): String? {
+    private fun getFcmToken(): String? {
         var token: String? = null
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -140,12 +141,10 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
             // Log and toast
             Log.d("TAG", "FCM Token is ${preferenceManager.getFcmAccessToken()}")
 
-            if (loginType == "KAKAO") {
-                finish()
+            if(preferenceManager.getString("address")?.isNullOrBlank() == true) {
                 startActivity(Intent(this@LoginActivity, LocationActivity::class.java))
             } else {
-                finish()
-                startActivity(Intent(this@LoginActivity, LocationActivity::class.java))
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             }
 
         })

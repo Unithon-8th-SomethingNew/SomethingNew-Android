@@ -25,10 +25,14 @@ class PreferenceManager(
 
         const val KEY_FCM_TOKEN = "FCM_TOKEN"
 
+        const val KEY_UID = "KEY_UID"
+        const val KEY_PROFILE_URL = "KEY_PROFILE_URL"
         const val KEY_USER_NAME = "KEY_USER_NAME"
         const val KEY_EMAIL_NAME = "KEY_EMAIL_NAME"
 
         const val KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
+
+        const val CALL_AVAILABLE = "KEY_CALL_AVAILABLE"
     }
 
     private fun getPreferences(context: Context): SharedPreferences {

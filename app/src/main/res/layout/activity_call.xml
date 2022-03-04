@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="45dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_call_close"
+            android:src="@drawable/ic_close_call"
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

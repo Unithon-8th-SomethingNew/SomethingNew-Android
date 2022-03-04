@@ -4,6 +4,7 @@ package com.unithon.somethingnew.presentation.main
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
+import com.google.android.material.tabs.TabLayoutMediator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.unithon.somethingnew.R
@@ -15,6 +16,7 @@ import com.unithon.somethingnew.presentation.utility.setStatusBarTransparent
 class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
     BaseActivity<ActivityMainBinding>() {
     lateinit var mainViewPagerAdapter: MainViewPagerAdapter
+    private val tabIconList = listOf<Int>(R.drawable.ic_home, R.drawable.ic_friends, R.drawable.ic_settings)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +65,10 @@ class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
         with(binding) {
             viewPager.adapter = mainViewPagerAdapter
             viewPager.isUserInputEnabled = false // 뷰 페이저 슬라이드 허용 안 함
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.icon = getDrawable(tabIconList[position])
+                tab.text = resources.getStringArray(R.array.home_tab_list)[position]
+            }.attach() // 탭 클릭시 Fragment 전환
         }
 
     }
