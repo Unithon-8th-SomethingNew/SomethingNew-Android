@@ -13,10 +13,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="27" />
-    <!-- 인터넷연결, 정확한위치, 대략적인 위치 권한-->
+        android:maxSdkVersion="27" /> <!-- 인터넷연결, 정확한위치, 대략적인 위치 권한 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -30,7 +28,6 @@
         android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -40,19 +37,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UnithonProject"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".presentation.friends.friendListActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.login.LocationActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">
-
             <meta-data
                 android:name="com.naver.maps.map.CLIENT_ID"
                 android:value="4cpvbfbtu4" />
         </activity>
-
         <!--
                 <meta-data
             android:name="com.naver.sdk.clientId"
@@ -64,27 +61,20 @@
             android:name="com.naver.sdk.clientName"
             android:value="@string/client_name" />
         -->
-
         <activity
             android:name=".presentation.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.UnithonProject.NoActionBar" />
-
         <activity
             android:name=".presentation.call.CallActivity"
             android:exported="true">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".presentation.login.AddressApiWebView" />
-
-
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">

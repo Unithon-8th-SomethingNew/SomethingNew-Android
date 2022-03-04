@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 
 class MainApi : BaseApi() {
     private val iODispatcher = Dispatchers.IO
-    private val preferenceManager = PreferenceManager(App.instance)
+    private val preferenceManager = PreferenceManager(App.context())
 
     suspend fun loginKakao(accessToken: String, fcmToken: String, street: String): Boolean = withContext(iODispatcher) {
         val loginApi = retrofit.create(ApiService::class.java)

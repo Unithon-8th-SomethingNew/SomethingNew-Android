@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jun/AndroidStudioProjects/SomethingNew-Android/app/src/main/res/drawable/round.xml" value="0.193" />
+        <entry key="..\:/Users/jun/AndroidStudioProjects/SomethingNew-Android/app/src/main/res/layout/activity_friend_list.xml" value="0.18489583333333334" />
+        <entry key="..\:/Users/jun/AndroidStudioProjects/SomethingNew-Android/app/src/main/res/layout/activity_main.xml" value="0.1743659420289855" />
         <entry key="..\:/Users/jun/AndroidStudioProjects/SomethingNew-Android/app/src/main/res/layout/activity_setting.xml" value="0.18489583333333334" />
+        <entry key="..\:/Users/jun/AndroidStudioProjects/SomethingNew-Android/app/src/main/res/layout/recycle_frend_item.xml" value="0.33" />
         <entry key="..\:/Users/jun/AndroidStudioProjects/SomethingNew-Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2155" />
+        <entry key="..\:/Users/jun/AndroidStudioProjects/SomethingNew-Android/app/src/main/res/xml/round.xml" value="0.18489583333333334" />
         <entry key="..\:/Users/jun/AndroidStudioProjects/SomethingNew-Android/app/src/main/res/xml/settings_preference.xml" value="0.18489583333333334" />
         <entry key="..\:/android_practice/UnithonProject/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/android_practice/UnithonProject/app/src/main/res/layout/content_login.xml" value="0.18568840579710144" />

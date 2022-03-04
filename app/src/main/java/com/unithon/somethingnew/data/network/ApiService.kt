@@ -11,4 +11,6 @@ interface ApiService {
 
     @POST("/auth/naver")
     suspend fun loginNaver(@Query("token") accessToken: String, @Query("fcmtoken") fcmToken: String, @Query("street") street: String): Response<LoginResponse>
+
+
 }
