@@ -102,4 +102,6 @@ dependencies {
 
     // Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    implementation "com.naver.maps:map-sdk:3.14.0"
 }
