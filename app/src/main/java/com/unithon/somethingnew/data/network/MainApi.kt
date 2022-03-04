@@ -1,5 +1,6 @@
 package com.unithon.somethingnew.data.network
 
+import android.util.Log
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_PROFILE_URL
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_UID
@@ -7,6 +8,7 @@ import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_
 import com.unithon.somethingnew.App
 import com.unithon.somethingnew.data.model.UserModel
 import com.unithon.somethingnew.data.network.base.BaseApi
+import com.unithon.somethingnew.data.network.request.KnockModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -55,6 +57,12 @@ class MainApi : BaseApi() {
         )
 
         isSuccess
+    }
+
+    suspend fun sendFcm(myUid: Long, otherUid: Long) = withContext(iODispatcher) {
+        val fcmApi = retrofit.create(ApiService::class.java)
+        fcmApi.sendFcm(KnockModel(myUid, otherUid))
+        true
     }
 
 }

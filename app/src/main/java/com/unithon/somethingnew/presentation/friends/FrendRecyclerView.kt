@@ -1,26 +1,33 @@
 package com.unithon.somethingnew.presentation.friends
 
-import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
-import android.view.LayoutInflater
-import android.animation.ObjectAnimator
-import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
 import com.unithon.somethingnew.R
+import com.unithon.somethingnew.data.network.MainApi
 import com.unithon.somethingnew.data.network.response.FriendResponse
-import com.unithon.somethingnew.presentation.login.LocationActivity
-import java.util.ArrayList
+import com.unithon.somethingnew.presentation.call.CallActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.*
 
 /**
 이 TopRecyclerView 는 ViewHolder 의 Binding 을 통해 작성되었습니다.
  */
 
 internal class FrendRecyclerView
-constructor(private val arrayList: ArrayList<FriendResponse>) :
+constructor(private val arrayList: ArrayList<FriendResponse>, private val context: Context) :
     RecyclerView.Adapter<FrendRecyclerView.ViewHolder>() {
+
+    private val preferenceManager = PreferenceManager(context)
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.recycle_frend_item, viewGroup, false)
@@ -41,7 +48,21 @@ constructor(private val arrayList: ArrayList<FriendResponse>) :
         with(viewHolder) {
             viewHolder.friendName.setOnClickListener {
                 if (arrayList[viewHolder.adapterPosition].callEnable) {
-
+                    CoroutineScope(Dispatchers.IO).launch {
+                        MainApi().sendFcm(
+                            preferenceManager.getLong(PreferenceManager.KEY_UID),
+                            arrayList[viewHolder.adapterPosition].friendID
+                        )
+                        friendImage.context.startActivity(
+                            Intent(
+                                friendImage.context,
+                                CallActivity::class.java
+                            ).putExtra(
+                                "channelId",
+                                preferenceManager.getLong(PreferenceManager.KEY_UID).toString()
+                            )
+                        )
+                    }
                 }
 
             }
