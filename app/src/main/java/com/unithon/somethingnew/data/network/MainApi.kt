@@ -11,9 +11,9 @@ class MainApi : BaseApi() {
     private val iODispatcher = Dispatchers.IO
     private val preferenceManager = PreferenceManager(App.instance)
 
-    suspend fun loginKakao(accessToken: String, fcmToken: String): Boolean = withContext(iODispatcher) {
+    suspend fun loginKakao(accessToken: String, fcmToken: String, street: String): Boolean = withContext(iODispatcher) {
         val loginApi = retrofit.create(ApiService::class.java)
-        val loginResponse = loginApi.loginKakao(accessToken, fcmToken)
+        val loginResponse = loginApi.loginKakao(accessToken, fcmToken, street)
 
         if (loginResponse.isSuccessful) {
             val loginModel = loginResponse.body()
@@ -24,9 +24,9 @@ class MainApi : BaseApi() {
         }
     }
 
-    suspend fun loginNaver(accessToken: String, fcmToken: String): Boolean = withContext(iODispatcher) {
+    suspend fun loginNaver(accessToken: String, fcmToken: String, street: String): Boolean = withContext(iODispatcher) {
         val loginApi = retrofit.create(ApiService::class.java)
-        val loginResponse = loginApi.loginNaver(accessToken, fcmToken)
+        val loginResponse = loginApi.loginNaver(accessToken, fcmToken, street)
 
         if (loginResponse.isSuccessful) {
             val loginModel = loginResponse.body()
