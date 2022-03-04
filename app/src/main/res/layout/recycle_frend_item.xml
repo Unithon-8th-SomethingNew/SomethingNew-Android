@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="65dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="17dp"
+    android:layout_marginTop="83dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/friend_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="20dp"
         android:background="@android:color/transparent"
         android:src="@color/black"
         app:civ_border_color="#000000"
@@ -20,23 +22,26 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="12dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/friend_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="김철수"
-            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="106dp"
+            android:text="Ronald Robertson"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/friend_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="경기도 김포시 사우동 서울어쩌구저쩌구" />
+            android:layout_width="283dp"
+            android:layout_height="18dp"
+            android:lineSpacingExtra="0sp"
+            android:text="서울 중구 을지로100길, 111동 123호" />
     </LinearLayout>
 
     <View
@@ -46,8 +51,8 @@
 
     <ImageView
         android:id="@+id/enable_call"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="10dp"
         app:srcCompat="@drawable/green_been" />
