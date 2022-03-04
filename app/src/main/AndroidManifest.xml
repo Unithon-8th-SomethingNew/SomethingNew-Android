@@ -32,16 +32,20 @@
             android:name="com.naver.sdk.clientName"
             android:value="@string/client_name" />
         -->
-        <activity
-            android:name=".presentation.login.LoginActivity"
-            android:exported="true"
-            android:theme="@style/Theme.UnithonProject.NoActionBar">
-
+        <activity android:name=".presentation.call.CallActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.login.LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.UnithonProject.NoActionBar">
+
+
         </activity> <!-- 카카오톡 로그인 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
