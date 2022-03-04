@@ -1,6 +1,6 @@
 package com.unithon.somethingnew.data.network.interceptor
 
-import com.unithon.somethingnew.BuildConfig
+import androidx.databinding.ktx.BuildConfig
 import okhttp3.logging.HttpLoggingInterceptor
 
 // HTTP Log 출력을 위한 Interceptor
