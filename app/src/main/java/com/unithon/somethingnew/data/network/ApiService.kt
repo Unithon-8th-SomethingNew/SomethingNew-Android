@@ -17,4 +17,9 @@ interface ApiService {
 
     @PUT("/user/callable")
     suspend fun toggleCallable(@Body userModel: UserModel)
+
+
+    @POST("/auth/naver")
+    suspend fun getFriend(): Response<FriendResponse>
+
 }
