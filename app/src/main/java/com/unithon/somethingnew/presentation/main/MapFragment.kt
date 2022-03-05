@@ -31,6 +31,7 @@ import com.unithon.somethingnew.data.network.response.CallableFriendModel
 import com.unithon.somethingnew.databinding.FragmentMapBinding
 import com.unithon.somethingnew.databinding.MakerBinding
 import com.unithon.somethingnew.presentation.base.BaseFragment
+import com.unithon.somethingnew.presentation.havenoke.HaveNokeActivity
 import com.unithon.somethingnew.presentation.utility.CustomToast
 import kotlinx.coroutines.*
 import java.util.*
@@ -99,9 +100,12 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                 Glide.with(requireContext()).load(friend.profileUrl)
                     .into(markerBinding.profileImageView)
 
+                val name = friend.username
+                val profileUrl = friend.profileUrl
+                val uid = friend.uid
+
                 val marker = Marker()
-                //순서수정
-                marker.position = LatLng(friend.y , friend.x)
+                marker.position = LatLng(friend.y, friend.x)
                 marker.icon = OverlayImage.fromView(markerBinding.root)
                 marker.width = 120
                 marker.height = 180
@@ -112,14 +116,52 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                     //순서수정
                     val cameraUpdate = CameraUpdate.scrollTo(
                         LatLng(
-                            friend.y , friend.x
+                            friend.y, friend.x
                         )
                     )
                     naverMap?.moveCamera(cameraUpdate)
 
+                    isReceive.observe(this) { isReceive ->
+                        if (isReceive) {
+                            binding.nokeBtn.visibility = View.GONE
+                            binding.bellBtn.visibility = View.GONE
+                        } else {
+                            binding.nokeBtn.visibility = View.VISIBLE
+                            binding.bellBtn.visibility = View.VISIBLE
+                        }
+
+                    }
+
+                    Log.d("id",uid.toString())
+
+                    binding.nokeBtn.setOnClickListener {
+
+                        CoroutineScope(Dispatchers.IO).launch {
+
+                            MainApi().sendFcm(
+                                preferenceManager.getLong(PreferenceManager.KEY_UID),
+                                2
+                            )
+
+                            startActivity(
+                                Intent(
+                                    context,
+                                    HaveNokeActivity::class.java
+                                ).putExtra(
+                                    "channelId",
+                                    preferenceManager.getLong(PreferenceManager.KEY_UID).toString()
+                                ).putExtra(
+                                    "name",
+                                    name
+                                ).putExtra(
+                                    "profileUrl",
+                                    profileUrl
+                                )
+                            )
+                        }
+                    }
                     true
                 }
-
                 activeMarkers?.add(marker)
             }
         }
@@ -133,6 +175,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
 
         mapFragment.getMapAsync(this)
 
+        /*
         isReceive.observe(this) { isReceive ->
             if (isReceive) {
                 binding.nokeBtn.visibility = View.GONE
@@ -143,8 +186,9 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
             }
         }
 
-    }
+         */
 
+    }
 
     override fun onMapReady(naverMap: NaverMap) {
 
@@ -178,7 +222,8 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                 CoroutineScope(Dispatchers.Main).launch {
                     val markerBinding = MakerBinding.inflate(layoutInflater)
                     markerBinding.makerUsername.text = preferenceManager.getString(KEY_USER_NAME)
-                    Glide.with(requireContext()).load(Uri.parse(preferenceManager.getString(KEY_PROFILE_URL)))
+                    Glide.with(requireContext())
+                        .load(Uri.parse(preferenceManager.getString(KEY_PROFILE_URL)))
                         .into(markerBinding.profileImageView)
 
                     delay(3000)
