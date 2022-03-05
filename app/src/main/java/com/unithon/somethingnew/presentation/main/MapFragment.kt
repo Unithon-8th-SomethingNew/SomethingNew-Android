@@ -61,7 +61,6 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
         job = Job()
         preferenceManager = PreferenceManager(requireContext())
 
-
         launch(Dispatchers.IO) {
             while (true) {
                 if (isReceive.value!!) {
@@ -72,7 +71,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                     )
                     callableFriendList.postValue(friendList)
                 }
-                delay(5000) // 30초에 한번씩 받아옴
+                delay(30000) // 30초에 한번씩 받아옴
             }
         }
 
@@ -109,10 +108,11 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                 marker.map = naverMap
                 marker.setOnClickListener {
                     isReceive.value = false
-//순서수정
+
+                    //순서수정
                     val cameraUpdate = CameraUpdate.scrollTo(
                         LatLng(
-                            friend.x , friend.y
+                            friend.y , friend.x
                         )
                     )
                     naverMap?.moveCamera(cameraUpdate)
@@ -136,8 +136,10 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
         isReceive.observe(this) { isReceive ->
             if (isReceive) {
                 binding.nokeBtn.visibility = View.GONE
+                binding.bellBtn.visibility = View.GONE
             } else {
                 binding.nokeBtn.visibility = View.VISIBLE
+                binding.bellBtn.visibility = View.VISIBLE
             }
         }
 
@@ -157,7 +159,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
             return
         }
         this.naverMap = naverMap
-        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+        naverMap.uiSettings.isLocationButtonEnabled = true
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             if (location != null) {
                 val latitude = location.latitude

@@ -82,6 +82,7 @@ constructor(private var arrayList: MutableList<FriendResponse>, private val cont
                                     preferenceManager.getLong(PreferenceManager.KEY_UID).toString()
                                 )
                             )
+                            dismiss()
                         }
                     }
                 }.show()

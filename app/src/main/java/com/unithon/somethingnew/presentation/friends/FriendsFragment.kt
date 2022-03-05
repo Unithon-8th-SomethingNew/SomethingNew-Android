@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
+import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_EMAIL_NAME
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_UID
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.data.network.MainApi
@@ -60,9 +61,9 @@ class FriendsFragment(override val layoutResId: Int = R.layout.friends_fragment)
                                 is_vaild.visibility = View.VISIBLE
                             }
                         } else {
-                            listArray.value = MainApi().getFriendList(myUid)
+                            listArray.postValue(MainApi().getFriendList(myUid))
                             launch(Dispatchers.Main) {
-                                dismiss()
+                                addDialog.dismiss()
                             }
                         }
                     }

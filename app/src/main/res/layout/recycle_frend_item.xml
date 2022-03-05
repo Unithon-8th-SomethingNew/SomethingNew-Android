@@ -50,6 +50,8 @@
             android:layout_width="283dp"
             android:layout_height="18dp"
             android:lineSpacingExtra="0sp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:fontFamily="@font/dunggeunmo"
             android:text="서울 중구 을지로100길, 111동 123호"
             android:textColor="#993C3C43"

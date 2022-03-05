@@ -10,11 +10,39 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/bell_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/bell_image"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/ic_bell" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dunggeunmo"
+                android:textColor="@color/black"
+                android:textSize="8sp"
+                tools:text="145번 눌렀어요!" />
+        </LinearLayout>
+
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
 
             <ImageView
                 android:id="@+id/imageView"
@@ -44,7 +72,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
-                    android:src="@drawable/ic_no_phone"/>
+                    android:src="@drawable/ic_no_phone" />
 
 
             </LinearLayout>

@@ -116,7 +116,9 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
                             finish()
                             startActivity(Intent(this@LocationActivity, MainActivity::class.java))
                         }
-                        binding.progressBar.visibility = View.GONE
+                        launch(Dispatchers.Main) {
+                            binding.progressBar.visibility = View.GONE
+                        }
                     }
                 }
 
