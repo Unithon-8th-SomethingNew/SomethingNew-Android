@@ -34,25 +34,13 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
+        Log.d("dddd","ddddd1")
         // FCM을 통해서 전달 받은 정보에 Notification 정보가 있는 경우 알림을 생성한다.
         if (remoteMessage.notification != null) {
             // 1. Vibrator 객체를 얻어온 다음
-            try {
-                val vibrator: Vibrator
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vibrator = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as Vibrator
-                    vibrator.vibrate(VibrationEffect.createOneShot(1000, 100))
-                } else {
-                    @Suppress("DEPRECATION")
-                    vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                    @Suppress("DEPRECATION")
-                    vibrator.vibrate(1000) // 1초간 진동
-                }
+            Log.d("dddd", remoteMessage.notification!!.body!!)
+            sendNotification(remoteMessage)
 
-                sendNotification(remoteMessage)
-            } catch (e: Exception) {
-
-            }
         } else {
             Log.d(TAG, "수신 에러: Notification이 비어있습니다.")
         }
@@ -69,8 +57,7 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
         var uid = remoteMessage.notification!!.body?.split("-")?.get(1)
         var profileUrl = remoteMessage.notification!!.body?.split("-")?.get(2)
 
-        var intent = Intent(this, NokeActivity::class.java).addCategory(Intent.CATEGORY_LAUNCHER)
-            .setAction(Intent.ACTION_MAIN)
+        var intent = Intent(this, NokeActivity::class.java)
         intent.putExtra("channelId", uid)
         intent.putExtra("name", name)
         intent.putExtra("profileUrl", profileUrl)
