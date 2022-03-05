@@ -89,4 +89,9 @@ class MainApi : BaseApi() {
             uid, street
         ))
     }
+
+    suspend fun bellPushToRun(uid: Long, fuid: Long) = withContext(iODispatcher) {
+        val bellApi = retrofit.create(ApiService::class.java)
+        bellApi.bellPushToRun(uid, fuid)
+    }
 }

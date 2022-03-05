@@ -74,7 +74,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                     )
                     callableFriendList.postValue(friendList)
                 }
-                delay(30000) // 30초에 한번씩 받아옴
+                delay(10000) // 30초에 한번씩 받아옴
             }
         }
 
@@ -134,6 +134,28 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
 
                     }
 
+                    binding.bellBtn.setOnClickListener {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            /*val numPushBell: Int = */
+                            MainApi().bellPushToRun(preferenceManager.getLong(PreferenceManager.KEY_UID), uid)
+
+                            /*
+                            //if (!numPushBell == -1) {
+
+                                val spannable = SpannableStringBuilder("친구의 벨을" ${numPushBell}번 "눌렀어요")
+                                    spannable.setSpan(
+                                    ForegroundColorSpan(Color.rgb(240, 89, 144)),
+                                    3,
+                                    friendList?.size.toString().length + 5,
+                                    Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                                    )
+
+                                CustomToast.createToast(requireContext(), spannable.toString())?.show()
+                            }
+                            */
+                        }
+
+                    }
 
                     binding.nokeBtn.setOnClickListener {
 
@@ -199,8 +221,10 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            return
+
         }
+
+
         this.naverMap = naverMap
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             if (location != null) {
@@ -224,7 +248,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                         .load(Uri.parse(preferenceManager.getString(KEY_PROFILE_URL)))
                         .into(markerBinding.profileImageView)
 
-                    delay(3000)
+                    delay(1000)
 
                     marker.position = LatLng(latitude, longitude)
                     marker.icon = OverlayImage.fromView(markerBinding.root)
@@ -232,8 +256,8 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                     marker.height = 180
                     marker.map = naverMap
                 }
-
             }
+
         }
     }
 
