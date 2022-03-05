@@ -10,20 +10,34 @@ import retrofit2.http.*
 
 interface ApiService {
     @POST("/auth/kakao")
-    suspend fun loginKakao(@Query("token") accessToken: String, @Query("fcmToken") fcmToken: String, @Query("street") street: String): Response<LoginResponse>
+    suspend fun loginKakao(
+        @Query("token") accessToken: String,
+        @Query("fcmToken") fcmToken: String,
+        @Query("street") street: String
+    ): Response<LoginResponse>
 
     @POST("/auth/naver")
-    suspend fun loginNaver(@Query("token") accessToken: String, @Query("fcmToken") fcmToken: String, @Query("street") street: String): Response<LoginResponse>
+    suspend fun loginNaver(
+        @Query("token") accessToken: String,
+        @Query("fcmToken") fcmToken: String,
+        @Query("street") street: String
+    ): Response<LoginResponse>
 
     @PUT("/user/callable")
     suspend fun toggleCallable(@Body userModel: UserModel)
 
     @POST("/friend/request")
-    suspend fun getFriendList(@Query("toUserId") userId: Long, @Query("fromUserId")fromUserId: Long)
+    suspend fun requestFriend(
+        @Query("fromUserId") userId: Long,
+        @Query("toUserEmail") friendEmail: String
+    ): Response<Unit>
 
-    @GET("/knock")
+    @POST("/knock")
     suspend fun sendFcm(@Body knockModel: KnockModel)
 
     @GET("/friend/location/{userId}")
     suspend fun getCallableFriendList(@Path("userId") uid: Long): Response<List<CallableFriendModel>>
+
+    @GET("/friend/find")
+    suspend fun getFriendList(@Query("userId") uid: Long): Response<List<FriendResponse>>
 }

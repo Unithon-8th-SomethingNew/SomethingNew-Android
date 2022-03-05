@@ -16,44 +16,26 @@
         android:fontFamily="@font/dohyeon_regular"
         android:textStyle="bold"
         android:gravity="center"
-        android:text="친구추가"
+        android:text="똑똑! 노크하기"
         android:textColor="@color/black"
         android:textSize="26sp" />
 
-    <EditText
-        android:id="@+id/email_edit_text"
+    <TextView
+        android:id="@+id/name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        android:maxLines="1"
+        android:text="최승호 님에게\n놀러갈까요?"
+        android:maxLines="2"
         android:maxLength="30"
         android:fontFamily="@font/dunggeunmo"
+        android:textColor="@color/black"
         android:gravity="center"
         android:textSize="18sp"
-        android:inputType="textPersonName"
         android:paddingBottom="15dp"
-        android:background="@null"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="10dp"
-        android:hint="친구의 이메일을 입력해 주세요" />
+        android:layout_marginLeft="10dp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="20dp"
-        android:background="#AEAEB2"/>
-
-    <TextView
-        android:id="@+id/is_vaild"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="해당하는 아이디가 없어요."
-        android:textColor="#F05990"
-        android:textSize="12sp"
-        android:visibility="invisible"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="4dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

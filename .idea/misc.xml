@@ -6,22 +6,30 @@
         <entry key="..\:/android_practice/UnithonProject/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/android_practice/UnithonProject/app/src/main/res/layout/content_login.xml" value="0.18568840579710144" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/drawable-v24/bg_switch_thumb.xml" value="0.38385416666666666" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/drawable/bg_edit_text.xml" value="0.17552083333333332" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/drawable/bg_switch_thumb.xml" value="0.38385416666666666" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/drawable/bg_switch_track.xml" value="0.38385416666666666" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/drawable/ic_bg_red_round.xml" value="0.22604166666666667" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/drawable/ic_bg_white_round.xml" value="0.38385416666666666" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/drawable/ic_close.xml" value="0.21979166666666666" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/drawable/ic_kakao.xml" value="0.38385416666666666" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/drawable/ic_no_phone.xml" value="0.21302083333333333" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/font/font_family.xml" value="0.22916666666666666" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_address_api_web_view.xml" value="0.36770833333333336" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_call.xml" value="0.22" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_friend_list.xml" value="0.17604166666666668" />
-        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_location.xml" value="0.22" />
-        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_location.xml" value="0.25" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_noke.xml" value="0.22" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_setting.xml" value="0.36770833333333336" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/activity_settings.xml" value="0.36770833333333336" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/custom_toast.xml" value="0.5" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/dialog_add_frend.xml" value="0.33" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/dialog_call.xml" value="0.25" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/fragment_map.xml" value="0.18802083333333333" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
+        <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/friends_fragment.xml" value="0.25" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/item_location.xml" value="0.36770833333333336" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/maker.xml" value="0.2" />
         <entry key="..\:/temp_project/SomethingNew-Android/app/src/main/res/layout/recycle_frend_item.xml" value="0.33" />

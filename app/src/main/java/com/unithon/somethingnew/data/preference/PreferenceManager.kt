@@ -116,8 +116,8 @@ class PreferenceManager(
      * @param key
      * @return
      */
-    fun getBoolean(key: String?): Boolean {
-        return prefs.getBoolean(key, DEFAULT_VALUE_BOOLEAN)
+    fun getBoolean(key: String?, defaultValue: Boolean = DEFAULT_VALUE_BOOLEAN): Boolean {
+        return prefs.getBoolean(key, defaultValue)
     }
 
     /**

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -27,50 +26,99 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/icon_white_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="22.5dp"
+                    android:src="@drawable/ic_login_white_box"
+                    app:layout_constraintBottom_toTopOf="@+id/banner"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/ic_ring"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon_white_box"
+                    app:layout_constraintLeft_toLeftOf="@+id/icon_white_box"
+                    app:layout_constraintRight_toRightOf="@+id/icon_white_box"
+                    app:layout_constraintTop_toTopOf="@+id/icon_white_box" />
+
+                <ImageView
                     android:id="@+id/banner"
-                    android:layout_width="285dp"
-                    android:layout_height="233dp"
-                    android:layout_marginTop="218dp"
-                    android:background="@drawable/img_main"
+                    android:layout_width="277dp"
+                    android:layout_height="89dp"
+                    android:background="@drawable/ic_banner"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/dohyeon_regular"
+                    android:text="철수 집에 있나요?"
+                    android:textColor="@color/black"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/banner"
+                    app:layout_constraintLeft_toLeftOf="@+id/banner"
+                    app:layout_constraintRight_toRightOf="@+id/banner"
+                    app:layout_constraintTop_toTopOf="@+id/banner" />
+
+                <TextView
                     android:id="@+id/accept_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="@font/dunggeunmo"
                     android:text="Loading 7 sec.."
                     android:textColor="#F8E318"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/KakaoLoginBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/banner"
                     app:layout_constraintLeft_toLeftOf="@+id/banner"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/banner"
                     app:layout_constraintTop_toBottomOf="@+id/banner" />
 
+
+                <ImageView
+                    android:id="@+id/KakaoLoginBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="82dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_kakao"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonOAuthLoginImg"
+                    app:layout_constraintLeft_toLeftOf="@+id/buttonOAuthLoginImg"
+                    app:layout_constraintRight_toRightOf="@+id/buttonOAuthLoginImg"
+                    app:layout_constraintTop_toBottomOf="@+id/accept_text_view" />
+
+                <ImageView
+                    android:id="@+id/buttonOAuthLoginImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/KakaoLoginBtn"
+                    app:srcCompat="@drawable/ic_naver" />
+
+                <com.navercorp.nid.oauth.view.NidOAuthLoginButton
+                    android:id="@+id/buttonOAuthLogin"
+                    app:layout_constraintTop_toTopOf="@+id/buttonOAuthLoginImg"
+                    app:layout_constraintBottom_toBottomOf="@+id/buttonOAuthLoginImg"
+                    app:layout_constraintLeft_toLeftOf="@+id/buttonOAuthLoginImg"
+                    app:layout_constraintRight_toRightOf="@+id/buttonOAuthLoginImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageButton
-                android:id="@+id/KakaoLoginBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="564dp"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/kakao" />
-
-            <ImageButton
-                android:id="@+id/buttonOAuthLoginImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="640dp"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/naver" />
-
-
         </FrameLayout>
 
 

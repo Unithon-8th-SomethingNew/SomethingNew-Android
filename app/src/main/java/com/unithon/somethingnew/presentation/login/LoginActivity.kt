@@ -2,9 +2,12 @@ package com.unithon.somethingnew.presentation.login
 
 import android.content.ContentValues
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_LOGIN_TYPE
 import com.google.android.gms.tasks.OnCompleteListener
@@ -49,8 +52,9 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
         )
         with(binding) {
             // 네이버 로그인 콜백
-            //buttonOAuthLoginImg.setOAuthLoginCallback(oauthLoginCallback)
-
+            buttonOAuthLogin.setOAuthLoginCallback(oauthLoginCallback)
+            buttonOAuthLogin.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this@LoginActivity, android.R.color.transparent))
+            acceptTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
             launch {
                 while(timeCount > 0) {
                     delay(1000)
@@ -60,7 +64,8 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
                         binding.acceptTextView.text = "Loading ${timeCount} sec.."
                     }
                 }
-
+                binding.acceptTextView.text = "START!"
+                cancel()
             }
 
         }
