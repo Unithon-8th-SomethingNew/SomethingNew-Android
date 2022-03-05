@@ -83,7 +83,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="건너뛰기"
+                android:text="확인"
+
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 android:textStyle="bold" />

@@ -19,15 +19,15 @@ import com.unithon.somethingnew.R
 import com.unithon.somethingnew.databinding.ActivityLoginBinding
 import com.unithon.somethingnew.presentation.base.BaseActivity
 import com.unithon.somethingnew.presentation.main.MainActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import com.unithon.somethingnew.presentation.utility.setStatusBarTransparent
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
     BaseActivity<ActivityLoginBinding>(), CoroutineScope {
 
-    lateinit var job: Job
+    var timeCount = 7
+    private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
@@ -36,6 +36,8 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setTheme(R.style.FullScreen)
+        setStatusBarTransparent(this, binding.rootView)
         job = Job()
         preferenceManager = PreferenceManager(this)
 
@@ -47,7 +49,20 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
         )
         with(binding) {
             // 네이버 로그인 콜백
-            buttonOAuthLoginImg.setOAuthLoginCallback(oauthLoginCallback)
+            //buttonOAuthLoginImg.setOAuthLoginCallback(oauthLoginCallback)
+
+            launch {
+                while(timeCount > 0) {
+                    delay(1000)
+                    timeCount -= 1
+
+                    launch(Dispatchers.Main) {
+                        binding.acceptTextView.text = "Loading ${timeCount} sec.."
+                    }
+                }
+
+            }
+
         }
 
 
