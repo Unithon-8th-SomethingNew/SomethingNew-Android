@@ -83,7 +83,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                 spannable.setSpan(
                     ForegroundColorSpan(Color.rgb(240, 89, 144)),
                     3,
-                    friendList?.size.toString().length + 3,
+                    friendList?.size.toString().length + 5,
                     Spannable.SPAN_EXCLUSIVE_INCLUSIVE
                 )
 
@@ -132,7 +132,6 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
 
                     }
 
-                    Log.d("id",uid.toString())
 
                     binding.nokeBtn.setOnClickListener {
 
@@ -140,7 +139,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
 
                             MainApi().sendFcm(
                                 preferenceManager.getLong(PreferenceManager.KEY_UID),
-                                2
+                                uid
                             )
 
                             startActivity(

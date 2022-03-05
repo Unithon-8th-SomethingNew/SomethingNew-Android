@@ -34,7 +34,7 @@ class HaveNokeActivity (override val layoutResId: Int = R.layout.activity_have_n
         with(binding) {
 
             nameTextView.text = "$name  님의 문을\n노크 중이에요..."
-            Glide.with(this@HaveNokeActivity).load(profileUrl).into(profileImageView)
+          //  Glide.with(this@HaveNokeActivity).load(profileUrl).into(profileImageView)
             Glide.with(this@HaveNokeActivity).load(R.raw.note).into(gifImageView)
             Glide.with(this@HaveNokeActivity).load(R.raw.ring).into(imageView2)
 

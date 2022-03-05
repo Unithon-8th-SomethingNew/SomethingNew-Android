@@ -19,7 +19,7 @@ object CustomToast {
         binding.toastText.text = message
 
         return Toast(context).apply {
-            setGravity(Gravity.BOTTOM or Gravity.CENTER, 0, 16.toPx())
+            setGravity(Gravity.BOTTOM or Gravity.CENTER, 0, 70.toPx())
             duration = Toast.LENGTH_LONG
             view = binding.root
         }
