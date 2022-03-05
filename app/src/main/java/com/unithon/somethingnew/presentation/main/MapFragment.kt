@@ -83,16 +83,4 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
         }
 
     }
-
-    /*
-    // 뷰를 비트맵으로 변환
-    fun viewToBitmap(view: View): Bitmap {
-        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        view.draw(canvas)
-
-        return bitmap
-    }
-
-     */
 }

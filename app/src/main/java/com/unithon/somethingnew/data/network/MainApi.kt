@@ -65,4 +65,10 @@ class MainApi : BaseApi() {
         true
     }
 
+    suspend fun FriendRequest(myUid: Long, otherUid: Long) = withContext(iODispatcher) {
+        val friendRequestApi = retrofit.create(ApiService::class.java)
+        friendRequestApi.FriendRequest(myUid, otherUid)
+        true
+    }
+
 }
