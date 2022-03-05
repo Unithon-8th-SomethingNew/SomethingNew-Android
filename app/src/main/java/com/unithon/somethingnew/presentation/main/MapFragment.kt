@@ -15,12 +15,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.gun0912.tedpermission.TedPermission
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.util.FusedLocationSource
 import com.unithon.somethingnew.App
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.databinding.FragmentMapBinding
@@ -30,7 +33,6 @@ import com.unithon.somethingnew.presentation.base.BaseFragment
 class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseFragment<FragmentMapBinding>(),
     OnMapReadyCallback {
     lateinit var fusedLocationClient: FusedLocationProviderClient
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,9 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
 
     }
 
+
     override fun onMapReady(p0: NaverMap) {
+
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -58,10 +62,19 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
         ) {
             return
         }
+
         fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
             if (location != null) {
                 val latitude = location.latitude
                 val longitude = location.longitude
+
+                val cameraUpdate = CameraUpdate.scrollTo(
+                    LatLng(
+                        latitude,
+                        longitude
+                    )
+                )
+                p0.moveCamera(cameraUpdate)
 
                 /*
                 Log.d("Test", "GPS Location Latitude: $latitude" +
