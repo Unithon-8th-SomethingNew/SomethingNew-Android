@@ -21,8 +21,10 @@ import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.*
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.unithon.somethingnew.R
@@ -136,12 +138,10 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                     binding.nokeBtn.setOnClickListener {
 
                         CoroutineScope(Dispatchers.IO).launch {
-
                             MainApi().sendFcm(
                                 preferenceManager.getLong(PreferenceManager.KEY_UID),
                                 uid
                             )
-
                             startActivity(
                                 Intent(
                                     context,
@@ -174,7 +174,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
 
         mapFragment.getMapAsync(this)
 
-        /*
+
         isReceive.observe(this) { isReceive ->
             if (isReceive) {
                 binding.nokeBtn.visibility = View.GONE
@@ -185,7 +185,6 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
             }
         }
 
-         */
 
     }
 
@@ -249,4 +248,5 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
         }
         activeMarkers = Vector()
     }
+
 }

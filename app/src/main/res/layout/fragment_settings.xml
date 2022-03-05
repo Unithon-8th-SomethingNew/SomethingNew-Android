@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="20dp"
         android:paddingVertical="60dp"
+        android:background="@color/white"
         tools:context=".presentation.setting">
 
         <TextView
