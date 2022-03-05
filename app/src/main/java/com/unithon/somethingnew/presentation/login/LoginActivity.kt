@@ -44,6 +44,13 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
         job = Job()
         preferenceManager = PreferenceManager(this)
 
+
+
+        /*Intent(this, NokeActivity::class.java).setAction("NOKE_ACTIVITY")
+        intent.putExtra("channelId", uid)
+        intent.putExtra("name", name)
+        intent.putExtra("profileUrl", profileUrl)*/
+
         NaverIdLoginSDK.initialize(
             this,
             getString(R.string.naver_client_id),
@@ -53,10 +60,15 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
         with(binding) {
             // 네이버 로그인 콜백
             buttonOAuthLogin.setOAuthLoginCallback(oauthLoginCallback)
-            buttonOAuthLogin.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this@LoginActivity, android.R.color.transparent))
+            buttonOAuthLogin.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    this@LoginActivity,
+                    android.R.color.transparent
+                )
+            )
             acceptTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
             launch {
-                while(timeCount > 0) {
+                while (timeCount > 0) {
                     delay(1000)
                     timeCount -= 1
 
@@ -161,10 +173,12 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
             // Log and toast
             Log.d("TAG", "FCM Token is ${preferenceManager.getFcmAccessToken()}")
 
-            if(preferenceManager.getString("address")?.isNullOrBlank() == true) {
+            if (preferenceManager.getString("address")?.isNullOrBlank() == true) {
                 startActivity(Intent(this@LoginActivity, LocationActivity::class.java))
+                finish()
             } else {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
             }
 
         })

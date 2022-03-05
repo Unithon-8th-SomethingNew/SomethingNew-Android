@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.CALL_AVAILABLE
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_UID
@@ -24,6 +25,7 @@ class SettingsFragment(override val layoutResId: Int = R.layout.fragment_setting
         get() = Dispatchers.Main + job
 
     private lateinit var activityLauncher: ActivityResultLauncher<Intent>
+
 
     // 저장되는 데이터에 접근하기 위한 PreferenceManager
     private lateinit var prefs: PreferenceManager

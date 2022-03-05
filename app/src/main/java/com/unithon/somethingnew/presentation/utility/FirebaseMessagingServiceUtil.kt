@@ -38,9 +38,7 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
 
         // FCM을 통해서 전달 받은 정보에 Notification 정보가 있는 경우 알림을 생성한다.
         if (remoteMessage.notification != null) {
-            // 1. Vibrator 객체를 얻어온 다음
             sendNotification(remoteMessage)
-
         } else {
             Log.d(TAG, "수신 에러: Notification이 비어있습니다.")
         }

@@ -4,26 +4,28 @@ package com.unithon.somethingnew.presentation.main
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.core.content.ContextCompat
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.tabs.TabLayout
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.databinding.ActivityMainBinding
-import com.unithon.somethingnew.presentation.adapter.viewpager.MainViewPagerAdapter
 import com.unithon.somethingnew.presentation.base.BaseActivity
+import com.unithon.somethingnew.presentation.friends.FriendsFragment
+import com.unithon.somethingnew.presentation.setting.SettingsFragment
 import com.unithon.somethingnew.presentation.utility.setStatusBarTransparent
+import androidx.viewpager.widget.PagerAdapter
+import com.unithon.somethingnew.presentation.adapter.viewpager.MyPagerAdapter
+
 
 class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
     BaseActivity<ActivityMainBinding>() {
-    lateinit var mainViewPagerAdapter: MainViewPagerAdapter
-    private val tabIconList = listOf<Int>(R.drawable.ic_home, R.drawable.ic_friends, R.drawable.ic_settings)
+    private var waitTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mainViewPagerAdapter = MainViewPagerAdapter(this)
         setTheme(R.style.FullScreen)
         setStatusBarTransparent(this, binding.rootView)
 
@@ -67,21 +69,25 @@ class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
                 .check()
         }
 
+
+
         with(binding) {
-            viewPager.adapter = mainViewPagerAdapter
-            viewPager.isUserInputEnabled = false // 뷰 페이저 슬라이드 허용 안 함
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.icon = getDrawable(tabIconList[position])
-            }.attach() // 탭 클릭시 Fragment 전환
+            val pagerAdapter = MyPagerAdapter(supportFragmentManager)
+            viewPager.adapter = pagerAdapter
         }
 
     }
 
     override fun onBackPressed() {
-        if(MapFragment.isReceive.value == false) {
+        if (MapFragment.isReceive.value == false) {
             MapFragment.isReceive.value = true
             return
         }
-        super.onBackPressed()
+        if (System.currentTimeMillis() - waitTime >= 1500) {
+            waitTime = System.currentTimeMillis()
+            showToast("한번 더 누르면 종료되요!")
+        } else {
+            finish() // 액티비티 종료
+        }
     }
 }
