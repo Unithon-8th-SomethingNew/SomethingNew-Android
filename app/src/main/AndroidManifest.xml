@@ -66,6 +66,11 @@
         <activity
             android:name=".presentation.havenoke.HaveNokeActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -75,15 +80,10 @@
         </activity>
         <activity
             android:name=".presentation.login.LocationActivity"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -106,6 +106,7 @@
             android:theme="@style/Theme.UnithonProject.NoActionBar">
 
         </activity>
+
         <activity
             android:name=".presentation.call.CallActivity"
             android:exported="true">
