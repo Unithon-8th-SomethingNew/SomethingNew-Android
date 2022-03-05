@@ -2,10 +2,6 @@ package com.unithon.somethingnew.presentation.call
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.RelativeSizeSpan
 import com.bumptech.glide.Glide
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.databinding.ActivityNokeBinding
@@ -37,6 +33,7 @@ class NokeActivity(override val layoutResId: Int = R.layout.activity_noke) :
 
             nameTextView.text = "$name 님이\n노크했어요"
             Glide.with(this@NokeActivity).load(profileUrl).into(profileImageView)
+            Glide.with(this@NokeActivity).load(R.raw.ring).into(lottieView)
 
             acceptCallBtn.setOnClickListener {
                 finish()
