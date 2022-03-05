@@ -22,8 +22,8 @@
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:background="#ACACAC"
+            android:layout_height="2dp"
+            android:background="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tab_layout"/>
 
         <com.google.android.material.tabs.TabLayout
@@ -31,10 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             app:tabIndicatorHeight="0dp"
-            android:background="#F9F9F9"
-            app:tabSelectedTextColor="#007AFF"
+            android:background="#4C84F0"
+            app:tabSelectedTextColor="#4C84F0"
             app:tabIconTint="@color/color_tab_selected"
-            app:tabTextColor="#AEAEB2"
             app:tabTextAppearance="@style/tabTextSizeBold"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -42,21 +41,18 @@
                 android:id="@+id/home_tab"
                 android:layout_width="0dp"
                 android:icon="@drawable/ic_home"
-                android:text="Home"
                 android:layout_height="match_parent"/>
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/friends_tab"
                 android:layout_width="0dp"
                 android:icon="@drawable/ic_friends"
-                android:text="Friends"
                 android:layout_height="match_parent"/>
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/setting_tab"
                 android:layout_width="0dp"
                 android:icon="@drawable/ic_settings"
-                android:text="Settings"
                 android:textSize="10sp"
                 android:layout_height="match_parent"/>
 
