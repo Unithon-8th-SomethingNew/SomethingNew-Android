@@ -27,7 +27,7 @@ class SettingsFragment(override val layoutResId: Int = R.layout.fragment_setting
         job = Job()
 
         with(binding) {
-            switchCallAvailable.isChecked = prefs.getBoolean(CALL_AVAILABLE)
+            switchCallAvailable.isChecked = prefs.getBoolean(CALL_AVAILABLE, true)
             switchCallAvailable.setOnCheckedChangeListener { buttonView, isChecked ->
                 prefs.setBoolean(CALL_AVAILABLE, isChecked)
             }

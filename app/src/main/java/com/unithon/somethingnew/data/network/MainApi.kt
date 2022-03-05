@@ -66,10 +66,9 @@ class MainApi : BaseApi() {
         true
     }
 
-    suspend fun Friendget(myUid: Long, otherUid: Long) = withContext(iODispatcher) {
+    suspend fun getFriendList(myUid: Long) = withContext(iODispatcher) {
         val friendRequestApi = retrofit.create(ApiService::class.java)
-        friendRequestApi.getFriendList(myUid, otherUid)
-        true
+        friendRequestApi.getFriendList(myUid).body()
     }
 
     suspend fun getCallableFriendList(myUid: Long): List<CallableFriendModel>? = withContext(iODispatcher) {
@@ -77,10 +76,10 @@ class MainApi : BaseApi() {
         friendRequestApi.getCallableFriendList(myUid).body()
     }
 
-    suspend fun FriendRequest(myUid: Long) = withContext(iODispatcher) {
+    suspend fun requestFriend(myUid: Long, friendEmail: String): Boolean = withContext(iODispatcher) {
         val friendRequestApi = retrofit.create(ApiService::class.java)
-        //friendRequestApi.FriendRequest(myUid)
-        true
+        val result = friendRequestApi.requestFriend(myUid, friendEmail)
+        result.isSuccessful
     }
 
 }

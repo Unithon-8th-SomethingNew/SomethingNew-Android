@@ -1,8 +1,6 @@
 package com.unithon.somethingnew.presentation.login
 
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -34,8 +32,10 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
 
         job = Job()
         with(binding) {
-            addBtn.setOnClickListener(this@LocationActivity)
+            locationTextView.setOnClickListener(this@LocationActivity)
             doneBtn.setOnClickListener(this@LocationActivity)
+            deleteBtn.setOnClickListener(this@LocationActivity)
+            researchBtn.setOnClickListener(this@LocationActivity)
 
             preferenceManager = PreferenceManager(this@LocationActivity)
             activityLauncher =
@@ -48,17 +48,21 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
 
             address.observe(this@LocationActivity) {
                 if (it.isNullOrEmpty().not()) {
-                    doneTextView.text = "확인"
-                    doneBtn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#007AFF"))
-                    locationEditText.setText(it)
+                    locationTextView.text = it
+                    divider.visibility = View.GONE
+                    deleteBtn.visibility = View.VISIBLE
                     doneBtn.isClickable = true
                     doneBtn.isEnabled = true
+                    searchIcon.visibility = View.GONE
+                    researchBtn.visibility = View.VISIBLE
                 } else {
-                    doneTextView.text = "건너뛰기"
-                    doneBtn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#DCDCDC"))
-                    locationEditText.text = null
+                    locationTextView.text = null
+                    divider.visibility = View.VISIBLE
+                    deleteBtn.visibility = View.GONE
                     doneBtn.isClickable = false
                     doneBtn.isEnabled = false
+                    searchIcon.visibility = View.VISIBLE
+                    researchBtn.visibility = View.GONE
                 }
             }
         }
@@ -66,13 +70,24 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.add_btn -> {
+            R.id.delete_btn -> {
+                address.value = ""
+            }
+            R.id.location_text_view -> {
+                val intent = Intent(this, AddressApiWebView::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                }
+                activityLauncher.launch(intent) // 주소 검색 액티비티 실행
+            }
+            R.id.research_btn -> {
+                address.value = ""
                 val intent = Intent(this, AddressApiWebView::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 }
                 activityLauncher.launch(intent) // 주소 검색 액티비티 실행
             }
             R.id.done_btn -> {
+                binding.progressBar.visibility = View.VISIBLE
                 if (preferenceManager.getString(PreferenceManager.KEY_LOGIN_TYPE) == "NAVER") {
                     launch(Dispatchers.IO) {
                         val isLoginSuccess =
@@ -86,6 +101,7 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
                             finish()
                             startActivity(Intent(this@LocationActivity, MainActivity::class.java))
                         }
+                        binding.progressBar.visibility = View.GONE
                     }
                 } else {
                     launch(Dispatchers.IO) {
@@ -100,6 +116,7 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
                             finish()
                             startActivity(Intent(this@LocationActivity, MainActivity::class.java))
                         }
+                        binding.progressBar.visibility = View.GONE
                     }
                 }
 

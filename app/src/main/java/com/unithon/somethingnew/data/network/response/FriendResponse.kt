@@ -1,17 +1,18 @@
 package com.unithon.somethingnew.data.network.response
 
-import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
 
 data class FriendResponse(
     @SerializedName("imgUrl")
-    val friendImage: Bitmap,
+    val friendImage: String,
     @SerializedName("username")
     var friendName: String,
-    @SerializedName("imgUrl")
-    var friendAddress: String,
+    @SerializedName("email")
+    var email: String,
+    @SerializedName("street")
+    var address: String,
     @SerializedName("userId")
-    val friendID: Long,
+    val friendId: Long,
     @SerializedName("canCall")
     val callEnable: Boolean = true
 

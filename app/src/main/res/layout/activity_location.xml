@@ -14,7 +14,17 @@
         android:paddingVertical="20dp"
         tools:context=".presentation.login.LocationActivity">
 
-        <TextView
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <!--<TextView
             android:id="@+id/add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,72 +34,106 @@
             android:textColor="#0A84FF"
             android:textSize="14sp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"/>-->
 
-      <!--  <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/location_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/title_text_view"
-            app:layout_constraintBottom_toTopOf="@+id/done_btn"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="50dp"/>-->
+        <!--  <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/location_recycler_view"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+              app:layout_constraintBottom_toTopOf="@+id/done_btn"
+              android:layout_marginBottom="16dp"
+              android:layout_marginTop="50dp"/>-->
 
 
         <TextView
             android:id="@+id/title_text_view"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/black"
             android:layout_marginTop="70dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/dunggeunmo"
             android:text="통화할 수 있는\n지역을 설정해보세요"
-            android:textStyle="bold"/>
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-        <EditText
-            android:id="@+id/location_edit_text"
+        <TextView
+            android:id="@+id/location_text_view"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@+id/title_text_view"
-            android:backgroundTint="#E5E5EA"
-            android:layout_marginTop="60dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="60dp"
+            android:background="@null"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center|left"
+            android:hint="주소 검색"
+            android:ellipsize="end"
             android:textColor="@color/black"
             android:textColorHint="#AEAEB2"
-            android:clickable="false"
-            android:enabled="false"
-            android:focusable="false"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/title_text_view" />
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="14dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/location_text_view"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/location_text_view" />
+
+        <ImageView
+            android:id="@+id/delete_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="14dp"
+            android:visibility="gone"
+            app:tint="#777777"
+            android:src="@drawable/ic_close"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintBottom_toBottomOf="@+id/location_text_view"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/location_text_view" />
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#AEAEB2"
+            app:layout_constraintTop_toBottomOf="@+id/location_text_view" />
+
+        <TextView
+            android:id="@+id/research_btn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:visibility="gone"
+            android:background="@drawable/ic_white_box_small"
+            app:layout_constraintTop_toBottomOf="@+id/location_text_view"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:textColor="@color/black"
             android:textSize="14sp"
-            android:paddingBottom="30dp"
-            android:hint="설정한 지역이 없어요."/>
+            android:text="주소 다시 검색하기"/>
 
 
-
-        <androidx.cardview.widget.CardView
+        <TextView
             android:id="@+id/done_btn"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:backgroundTint="#DCDCDC"
-            app:cardCornerRadius="14dp"
-            android:background="?attr/selectableItemBackground"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_height="52dp"
+            android:text="확인"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/ic_yellow_box"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-            <TextView
-                android:id="@+id/done_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="확인"
-
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

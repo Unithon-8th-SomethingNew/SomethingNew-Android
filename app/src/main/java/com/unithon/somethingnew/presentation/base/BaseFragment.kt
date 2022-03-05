@@ -32,9 +32,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         return viewDataBinding?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -42,7 +39,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     }
 
     // binding 객체를 가져오는 메소드
-    fun getViewDataBinding(): T? = viewDataBinding
+    private fun getViewDataBinding(): T? = viewDataBinding
 
     // 토스트 띄우기
     fun showToast(msg: String) {
