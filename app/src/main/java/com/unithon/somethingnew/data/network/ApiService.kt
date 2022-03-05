@@ -44,4 +44,7 @@ interface ApiService {
 
     @PUT("/user/street")
     suspend fun updateStreet(@Body updateBody: ChangeStreetModel): Response<Unit>
+
+    @PUT("/bell/push")
+    suspend fun bellPushToRun(@Query("fromUserId")fromUserId: Long,@Query("toUserid")toUserid: Long)
 }

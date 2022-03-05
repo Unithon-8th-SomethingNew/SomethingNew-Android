@@ -1,9 +1,11 @@
 package com.unithon.somethingnew.presentation.login
 
+import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -12,6 +14,8 @@ import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_LOGIN_TYPE
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -50,6 +54,46 @@ class LoginActivity(override val layoutResId: Int = R.layout.activity_login) :
         intent.putExtra("channelId", uid)
         intent.putExtra("name", name)
         intent.putExtra("profileUrl", profileUrl)*/
+
+        val permissionListener: PermissionListener = object : PermissionListener {
+            override fun onPermissionGranted() {
+                // 접근허용 시 실행할 코드
+
+            }
+
+            override fun onPermissionDenied(deniedPermissions: List<String>) {
+                // 접근거부 시 실행할 코드
+                showToast("권한을 허용해주세요!")
+                finish()
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setDeniedMessage("접근 거부하셨습니다.\n[설정] - [권한]에서 권한을 허용해주세요.")
+                .setPermissions(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    //Manifest.permission.BLUETOOTH,
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                    //Manifest.permission.BLUETOOTH_SCAN
+                )
+                .check()
+        } else {
+            TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setDeniedMessage("접근 거부하셨습니다.\n[설정] - [권한]에서 권한을 허용해주세요.")
+                .setPermissions(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                )
+                .check()
+        }
 
         NaverIdLoginSDK.initialize(
             this,
