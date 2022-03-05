@@ -101,6 +101,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                     .into(markerBinding.profileImageView)
 
                 val marker = Marker()
+                //순서수정
                 marker.position = LatLng(friend.y , friend.x)
                 marker.icon = OverlayImage.fromView(markerBinding.root)
                 marker.width = 120
@@ -108,7 +109,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                 marker.map = naverMap
                 marker.setOnClickListener {
                     isReceive.value = false
-
+//순서수정
                     val cameraUpdate = CameraUpdate.scrollTo(
                         LatLng(
                             friend.x , friend.y
