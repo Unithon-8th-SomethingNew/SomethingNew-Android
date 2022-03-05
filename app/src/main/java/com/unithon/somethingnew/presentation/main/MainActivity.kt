@@ -27,6 +27,11 @@ class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
         setTheme(R.style.FullScreen)
         setStatusBarTransparent(this, binding.rootView)
 
+        val permissionListener: PermissionListener = object : PermissionListener {
+            override fun onPermissionGranted() {
+                // 접근허용 시 실행할 코드
+
+            }
 
             override fun onPermissionDenied(deniedPermissions: List<String>) {
                 // 접근거부 시 실행할 코드

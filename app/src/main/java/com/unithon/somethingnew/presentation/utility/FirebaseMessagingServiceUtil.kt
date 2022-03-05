@@ -52,7 +52,7 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
         val id = 0
         var title = URLDecoder.decode(remoteMessage.notification!!.title, "utf-8")
         var name = URLDecoder.decode(remoteMessage.notification!!.body?.split("-")?.get(0), "utf-8")
-        var uid = remoteMessage.notification!!.body?.split("-")?.get(1)
+        val uid = remoteMessage.notification!!.body?.split("-")?.get(1)
         var profileUrl = remoteMessage.notification!!.body?.split("-")?.get(2)
 
 
