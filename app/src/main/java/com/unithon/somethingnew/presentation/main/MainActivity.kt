@@ -67,7 +67,6 @@ class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
             viewPager.isUserInputEnabled = false // 뷰 페이저 슬라이드 허용 안 함
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.icon = getDrawable(tabIconList[position])
-                tab.text = resources.getStringArray(R.array.home_tab_list)[position]
             }.attach() // 탭 클릭시 Fragment 전환
         }
 

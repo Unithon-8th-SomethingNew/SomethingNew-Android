@@ -22,7 +22,6 @@ class CallActivity(override val layoutResId: Int = R.layout.activity_call) :
 
     var remonCall: RemonCall? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON) // 화면 안꺼지도록 설정
