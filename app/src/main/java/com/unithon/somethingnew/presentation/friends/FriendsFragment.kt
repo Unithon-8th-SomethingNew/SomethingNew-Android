@@ -49,6 +49,7 @@ class FriendsFragment(override val layoutResId: Int = R.layout.friends_fragment)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             cancelBtn.setOnClickListener {
                 this.dismiss()
+                addDialog.email_edit_text.text.clear()
             }
             okBtn.setOnClickListener {
                 val email = email_edit_text.text.toString()
@@ -64,6 +65,7 @@ class FriendsFragment(override val layoutResId: Int = R.layout.friends_fragment)
                             listArray.postValue(MainApi().getFriendList(myUid))
                             launch(Dispatchers.Main) {
                                 addDialog.dismiss()
+                                addDialog.email_edit_text.text.clear()
                             }
                         }
                     }

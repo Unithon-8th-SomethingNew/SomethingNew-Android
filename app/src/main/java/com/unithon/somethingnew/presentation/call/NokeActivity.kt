@@ -35,7 +35,7 @@ class NokeActivity(override val layoutResId: Int = R.layout.activity_noke) :
 
             nameTextView.text = "$name  님이\n노크했어요"
             Glide.with(this@NokeActivity).load(profileUrl).into(profileImageView)
-            Glide.with(this@NokeActivity).load(R.raw.ring).into(lottieView)
+            Glide.with(this@NokeActivity).load(R.raw.note).into(lottieView)
 
             acceptCallBtn.setOnClickListener {
                 finish()
