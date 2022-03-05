@@ -33,7 +33,4 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.UnithonProject.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.UnithonProject.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

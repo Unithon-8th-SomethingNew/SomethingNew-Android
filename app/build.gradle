@@ -61,14 +61,11 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
-    implementation 'androidx.browser:browser:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.security:security-crypto:1.1.0-alpha03'
     implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.moshi:moshi-kotlin:1.11.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
     implementation 'com.airbnb.android:lottie:3.1.0'
 
@@ -82,7 +79,6 @@ dependencies {
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
@@ -91,10 +87,6 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:19.0.1"
 
     implementation "com.kakao.sdk:v2-user:2.8.6" // 카카오 로그인
-    implementation "com.kakao.sdk:v2-talk:2.8.6" // 친구, 메시지(카카오톡)
-    implementation "com.kakao.sdk:v2-story:2.8.6" // 카카오스토리
-    implementation "com.kakao.sdk:v2-link:2.8.6" // 메시지(카카오링크)
-    implementation "com.kakao.sdk:v2-navi:2.8.6" // 카카오내비x
     // Koin Core features
     //코어
     implementation 'org.koin:koin-core:2.0.0-rc-2'
@@ -121,10 +113,5 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.bumptech.glide:glide:4.13.0'
 
-//play-services-location
-    implementation("com.google.android.gms:play-services-location:19.0.1")
-
-    //gradle
-    implementation 'com.github.bumptech.glide:glide:4.13.0'
 
 }

@@ -1,6 +1,7 @@
 package com.unithon.somethingnew.data.network
 
 import com.unithon.somethingnew.data.model.UserModel
+import com.unithon.somethingnew.data.network.request.ChangeStreetModel
 import com.unithon.somethingnew.data.network.request.KnockModel
 import com.unithon.somethingnew.data.network.response.CallableFriendModel
 import com.unithon.somethingnew.data.network.response.FriendResponse
@@ -40,4 +41,7 @@ interface ApiService {
 
     @GET("/friend/find")
     suspend fun getFriendList(@Query("userId") uid: Long): Response<List<FriendResponse>>
+
+    @PUT("/user/street")
+    suspend fun updateStreet(@Body updateBody: ChangeStreetModel): Response<Unit>
 }

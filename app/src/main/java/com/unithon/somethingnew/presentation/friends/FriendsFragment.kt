@@ -50,6 +50,7 @@ class FriendsFragment(override val layoutResId: Int = R.layout.friends_fragment)
             cancelBtn.setOnClickListener {
                 this.dismiss()
                 addDialog.email_edit_text.text.clear()
+                is_vaild.visibility = View.GONE
             }
             okBtn.setOnClickListener {
                 val email = email_edit_text.text.toString()
