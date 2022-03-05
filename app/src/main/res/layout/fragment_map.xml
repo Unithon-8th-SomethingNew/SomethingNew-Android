@@ -17,5 +17,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <TextView
+            android:id="@+id/noke_btn"
+            android:layout_width="320dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_noke"
+            android:fontFamily="@font/dunggeunmo"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="노크하기"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
     </FrameLayout>
 </layout>

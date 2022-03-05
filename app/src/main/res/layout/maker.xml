@@ -37,7 +37,7 @@
                     android:text="USER" />
 
                 <ImageView
-                    android:id="@+id/maker_Userimage"
+                    android:id="@+id/profile_image_view"
                     android:layout_width="52dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"

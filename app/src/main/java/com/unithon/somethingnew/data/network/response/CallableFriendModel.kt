@@ -7,12 +7,12 @@ data class CallableFriendModel(
     val uid: Long,
     @SerializedName("username")
     val username: String,
-    @SerializedName("profile_url")
+    @SerializedName("imgUrl")
     val profileUrl: String,
     @SerializedName("x")
     val x: Double,
     @SerializedName("y")
     val y: Double,
-    @SerializedName("fcmtoken")
+    @SerializedName("fcmToken")
     val fcmToken: String,
 )

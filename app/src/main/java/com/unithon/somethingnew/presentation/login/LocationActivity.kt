@@ -82,8 +82,8 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
                                 address.value!!
                             )
 
-                        Log.d("dddd", isLoginSuccess.toString())
                         if (isLoginSuccess) {
+                            finish()
                             startActivity(Intent(this@LocationActivity, MainActivity::class.java))
                         }
                     }
@@ -97,6 +97,7 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
                             )
 
                         if (isLoginSuccess) {
+                            finish()
                             startActivity(Intent(this@LocationActivity, MainActivity::class.java))
                         }
                     }

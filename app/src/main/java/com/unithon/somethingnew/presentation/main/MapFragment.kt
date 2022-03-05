@@ -1,43 +1,41 @@
 package com.unithon.somethingnew.presentation.main
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide
 import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
+import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_PROFILE_URL
+import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_USER_NAME
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.*
 import com.naver.maps.map.MapFragment
-import com.naver.maps.map.NaverMap
-import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
-import com.unithon.somethingnew.App
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.data.network.MainApi
 import com.unithon.somethingnew.data.network.response.CallableFriendModel
 import com.unithon.somethingnew.databinding.FragmentMapBinding
 import com.unithon.somethingnew.databinding.MakerBinding
 import com.unithon.somethingnew.presentation.base.BaseFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.unithon.somethingnew.presentation.utility.CustomToast
+import kotlinx.coroutines.*
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
-class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseFragment<FragmentMapBinding>(),
+
+class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
+    BaseFragment<FragmentMapBinding>(),
     OnMapReadyCallback, CoroutineScope {
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
@@ -46,21 +44,79 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
     lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var preferenceManager: PreferenceManager
     private val callableFriendList = MutableLiveData<List<CallableFriendModel>?>() // 사용자 정보 라이브 데이터
+    private var activeMarkers: Vector<Marker>? = null
+
+    private var naverMap: NaverMap? = null
+    private var isFirst = true
+
+    companion object {
+        var isReceive = MutableLiveData(true)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         job = Job()
         preferenceManager = PreferenceManager(requireContext())
 
+
         launch(Dispatchers.IO) {
-            val friendList = MainApi().getCallableFriendList(preferenceManager.getLong(
-                PreferenceManager.KEY_UID))
-            callableFriendList.postValue(friendList)
-            Log.d("ddddd", friendList.toString())
+            while (true) {
+                if (isReceive.value!!) {
+                    val friendList = MainApi().getCallableFriendList(
+                        preferenceManager.getLong(
+                            PreferenceManager.KEY_UID
+                        )
+                    )
+                    callableFriendList.postValue(friendList)
+                }
+                delay(30000) // 30초에 한번씩 받아옴
+            }
         }
 
-        callableFriendList.observe(this) {
+        callableFriendList.observe(this) { friendList ->
+            if (isFirst) {
+                isFirst = false
+                val spannable = SpannableStringBuilder("현재 ${friendList?.size}명의 친구가\n대화가 가능해요")
+                spannable.setSpan(
+                    ForegroundColorSpan(Color.rgb(240, 89, 144)),
+                    3,
+                    friendList?.size.toString().length + 3,
+                    Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                )
 
+                CustomToast.createToast(requireContext(), spannable.toString())
+            }
+
+
+
+           // freeActiveMarkers() // 마커 모두 제거
+
+            friendList?.forEach { friend ->
+                val markerBinding = MakerBinding.inflate(layoutInflater)
+
+                markerBinding.makerUsername.text = friend.username
+                Glide.with(requireContext()).load(friend.profileUrl)
+                    .into(markerBinding.profileImageView)
+
+                val marker = Marker()
+                marker.position = LatLng(friend.x, friend.y)
+                marker.icon = OverlayImage.fromView(markerBinding.root)
+                marker.width = 120
+                marker.height = 180
+                marker.map = naverMap
+                marker.setOnClickListener {
+                    isReceive.value = false
+
+                    val cameraUpdate = CameraUpdate.scrollTo(
+                        LatLng(
+                            friend.x, friend.y
+                        )
+                    )
+                    naverMap?.moveCamera(cameraUpdate)
+
+                    true
+                }
+            }
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
@@ -72,9 +128,17 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
 
         mapFragment.getMapAsync(this)
 
+        isReceive.observe(this) { isReceive ->
+            if (isReceive) {
+                binding.nokeBtn.visibility = View.GONE
+            } else {
+                binding.nokeBtn.visibility = View.VISIBLE
+            }
+        }
     }
 
-    override fun onMapReady(p0: NaverMap) {
+
+    override fun onMapReady(naverMap: NaverMap) {
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -86,19 +150,30 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
         ) {
             return
         }
-        fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
+        this.naverMap = naverMap
+        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             if (location != null) {
                 val latitude = location.latitude
                 val longitude = location.longitude
 
+                val cameraUpdate = CameraUpdate.scrollTo(
+                    LatLng(
+                        latitude,
+                        longitude
+                    )
+                )
+                naverMap.moveCamera(cameraUpdate)
+
+
                 /*
                 Log.d("Test", "GPS Location Latitude: $latitude" +
                         ", Longitude: $longitude")
-
                  */
                 val markerBinding = MakerBinding.inflate(layoutInflater)
-                markerBinding.makerUsername.text = "이름"
-                //markerBinding.makerUserimage.setImageBitmap()
+                markerBinding.makerUsername.text = preferenceManager.getString(KEY_USER_NAME)
+                Glide.with(requireContext()).load(preferenceManager.getString(KEY_PROFILE_URL))
+                    .into(markerBinding.profileImageView)
 
 
                 val marker = Marker()
@@ -106,9 +181,21 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
                 marker.icon = OverlayImage.fromView(markerBinding.root)
                 marker.width = 120
                 marker.height = 180
-                marker.map = p0
+                marker.map = naverMap
+
             }
         }
+    }
 
+    // 지도상에 표시되고있는 마커들 지도에서 삭제
+    private fun freeActiveMarkers() {
+        if (activeMarkers == null) {
+            activeMarkers = Vector()
+            return
+        }
+        for (activeMarker in activeMarkers!!) {
+            activeMarker.map = null
+        }
+        activeMarkers = Vector()
     }
 }
