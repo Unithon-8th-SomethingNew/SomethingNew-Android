@@ -65,7 +65,10 @@
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
             android:name=".presentation.call.NokeActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
+
         <activity
             android:name=".presentation.login.LocationActivity"
             android:exported="false" />
@@ -98,6 +101,7 @@
             android:name=".presentation.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.UnithonProject.NoActionBar">
+
         </activity>
         <activity
             android:name=".presentation.call.CallActivity"
