@@ -3,6 +3,7 @@ package com.unithon.somethingnew.presentation.call
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +30,7 @@ class CallActivity(override val layoutResId: Int = R.layout.activity_call) :
         setTheme(R.style.FullScreen)
         setStatusBarTransparent(this, binding.rootView)
 
+        val channelId = intent.getStringExtra("channelId")
 
         showSnackBar("상대방을 기다리고 있어요!")
 
@@ -52,9 +54,8 @@ class CallActivity(override val layoutResId: Int = R.layout.activity_call) :
                     .serviceId("SERVICEID1")    // RemoteMonster 사이트에서 등록했던 당신의 id를 입력하세요.
                     .key("1234567890")    // RemoteMonster로부터 받은 당신의 key를 입력하세요.
                     .build()
-                val channelId = intent.getStringExtra("channelId")
 
-                remonCall?.connect(channelId)
+                remonCall?.connect("ChannelId$channelId")
                 remonCall?.onClose {
                     finish()
                 }
