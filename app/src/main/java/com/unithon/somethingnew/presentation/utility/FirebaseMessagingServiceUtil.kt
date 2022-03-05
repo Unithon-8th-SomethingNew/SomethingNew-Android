@@ -16,6 +16,8 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.presentation.call.NokeActivity
+import java.net.URLDecoder
+import java.net.URLEncoder
 
 class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
     val TAG = "FirebaseMessagingServiceUtil.class"
@@ -34,11 +36,9 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
-        Log.d("dddd","ddddd1")
         // FCM을 통해서 전달 받은 정보에 Notification 정보가 있는 경우 알림을 생성한다.
         if (remoteMessage.notification != null) {
             // 1. Vibrator 객체를 얻어온 다음
-            Log.d("dddd", remoteMessage.notification!!.body!!)
             sendNotification(remoteMessage)
 
         } else {
@@ -52,10 +52,11 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
      */
     private fun sendNotification(remoteMessage: RemoteMessage) {
         val id = 0
-        var title = remoteMessage.notification!!.title
-        var name = remoteMessage.notification!!.body?.split("-")?.get(0)
+        var title = URLDecoder.decode(remoteMessage.notification!!.title, "utf-8")
+        var name = URLDecoder.decode(remoteMessage.notification!!.body?.split("-")?.get(0), "utf-8")
         var uid = remoteMessage.notification!!.body?.split("-")?.get(1)
         var profileUrl = remoteMessage.notification!!.body?.split("-")?.get(2)
+
 
         var intent = Intent(this, NokeActivity::class.java)
         intent.putExtra("channelId", uid)

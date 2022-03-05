@@ -3,6 +3,7 @@ package com.unithon.somethingnew.presentation.call
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.unithon.somethingnew.R
@@ -30,6 +31,7 @@ class NokeActivity(override val layoutResId: Int = R.layout.activity_noke) :
         val name = intent.getStringExtra("name")
         val channelId = intent.getStringExtra("channelId")
         val profileUrl = intent.getStringExtra("profileUrl")
+
 
         with(binding) {
 
