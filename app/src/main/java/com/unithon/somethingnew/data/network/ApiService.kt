@@ -24,6 +24,6 @@ interface ApiService {
     @GET("/knock")
     suspend fun sendFcm(@Body knockModel: KnockModel)
 
-    @GET("/user/location/{userId}")
+    @GET("/friend/location/{userId}")
     suspend fun getCallableFriendList(@Path("userId") uid: Long): Response<List<CallableFriendModel>>
 }

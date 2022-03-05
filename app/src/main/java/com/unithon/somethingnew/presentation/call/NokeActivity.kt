@@ -1,11 +1,9 @@
 package com.unithon.somethingnew.presentation.call
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.RelativeSizeSpan
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.databinding.ActivityNokeBinding
@@ -35,7 +33,7 @@ class NokeActivity(override val layoutResId: Int = R.layout.activity_noke) :
 
         with(binding) {
 
-            nameTextView.text = "$name 님이\n노크했어요"
+            nameTextView.text = "$name  님이\n노크했어요"
             Glide.with(this@NokeActivity).load(profileUrl).into(profileImageView)
 
             acceptCallBtn.setOnClickListener {
@@ -51,15 +49,22 @@ class NokeActivity(override val layoutResId: Int = R.layout.activity_noke) :
             deceptCallBtn.setOnClickListener {
                 finish()
             }
+
+            binding.countText.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         }
 
         launch {
-            while(timeCount > 0) {
+            while (timeCount > 0) {
                 delay(1000)
                 timeCount -= 1
 
+                if (timeCount <= 3) {
+                    binding.buttonContainer.setBackgroundResource(R.drawable.ic_red_box)
+                    binding.nokeBackground.setBackgroundResource(R.drawable.ic_bg_noke2)
+                    binding.countText.setTextColor(ContextCompat.getColor(this@NokeActivity, R.color.black))
+                }
                 launch(Dispatchers.Main) {
-                    binding.acceptTextView.text = "대화 참여하기 (${timeCount}초 뒤 자동 연결)"
+                    binding.countText.text = "${timeCount}초 뒤 들어옵니다!"
                 }
             }
 

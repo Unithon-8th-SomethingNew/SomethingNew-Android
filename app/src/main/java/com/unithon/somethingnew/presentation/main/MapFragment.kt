@@ -1,9 +1,11 @@
 package com.unithon.somethingnew.presentation.main
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -88,8 +90,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
             }
 
 
-
-           // freeActiveMarkers() // 마커 모두 제거
+            freeActiveMarkers() // 마커 모두 제거
 
             friendList?.forEach { friend ->
                 val markerBinding = MakerBinding.inflate(layoutInflater)
@@ -116,6 +117,8 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
 
                     true
                 }
+
+                activeMarkers?.add(marker)
             }
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -135,6 +138,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                 binding.nokeBtn.visibility = View.VISIBLE
             }
         }
+
     }
 
 
@@ -165,16 +169,11 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                 )
                 naverMap.moveCamera(cameraUpdate)
 
-
-                /*
-                Log.d("Test", "GPS Location Latitude: $latitude" +
-                        ", Longitude: $longitude")
-                 */
                 val markerBinding = MakerBinding.inflate(layoutInflater)
                 markerBinding.makerUsername.text = preferenceManager.getString(KEY_USER_NAME)
-                Glide.with(requireContext()).load(preferenceManager.getString(KEY_PROFILE_URL))
+                Glide.with(requireContext()).load(Uri.parse(preferenceManager.getString(KEY_PROFILE_URL))).centerCrop()
+                    .error(R.drawable.ic_no_phone)
                     .into(markerBinding.profileImageView)
-
 
                 val marker = Marker()
                 marker.position = LatLng(latitude, longitude)

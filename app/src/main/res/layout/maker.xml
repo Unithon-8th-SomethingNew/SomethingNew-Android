@@ -20,7 +20,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/maker_image" />
+                app:srcCompat="@drawable/ic_bg_mark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,10 +31,12 @@
                     android:id="@+id/maker_username"
                     android:layout_width="match_parent"
                     android:layout_height="23dp"
-                    android:lineSpacingExtra="5sp"
+                    android:fontFamily="@font/dohyeon_regular"
                     android:gravity="center"
-                    android:textStyle="bold"
-                    android:text="USER" />
+                    android:lineSpacingExtra="5sp"
+                    android:text="USER"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/profile_image_view"
@@ -42,7 +44,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/ic_no_phone"/>
 
 
             </LinearLayout>

@@ -45,7 +45,6 @@
                     android:text="Loading 7 sec.."
                     android:textColor="#F8E318"
                     app:layout_constraintBottom_toBottomOf="parent"
-
                     app:layout_constraintLeft_toLeftOf="@+id/banner"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/banner"
