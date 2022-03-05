@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-        <com.unithon.somethingnew.presentation.adapter.viewpager.CustomViewPager
+        <com.unithon.somethingnew.presentation.adapter.viewpager.NonSwipeViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
