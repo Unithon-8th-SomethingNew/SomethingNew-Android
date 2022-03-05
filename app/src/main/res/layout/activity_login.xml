@@ -28,8 +28,8 @@
 
                 <ImageView
                     android:id="@+id/banner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="285dp"
+                    android:layout_height="233dp"
                     android:layout_marginTop="218dp"
                     android:background="@drawable/img_main"
                     app:layout_constraintBottom_toBottomOf="parent"
