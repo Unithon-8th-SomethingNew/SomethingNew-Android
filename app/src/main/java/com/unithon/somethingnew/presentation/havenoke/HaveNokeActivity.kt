@@ -2,13 +2,10 @@ package com.unithon.somethingnew.presentation.havenoke
 
 import android.content.Intent
 import android.graphics.Paint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.databinding.ActivityHaveNokeBinding
-import com.unithon.somethingnew.databinding.ActivityNokeBinding
 import com.unithon.somethingnew.presentation.base.BaseActivity
 import com.unithon.somethingnew.presentation.call.CallActivity
 import com.unithon.somethingnew.presentation.utility.setStatusBarTransparent
@@ -38,13 +35,14 @@ class HaveNokeActivity (override val layoutResId: Int = R.layout.activity_have_n
 
             nameTextView.text = "$name  님의 문을\n노크 중이에요..."
             Glide.with(this@HaveNokeActivity).load(profileUrl).into(profileImageView)
-            Glide.with(this@HaveNokeActivity).load(R.raw.ring).into(lottieView)
+            Glide.with(this@HaveNokeActivity).load(R.raw.note).into(gifImageView)
+            Glide.with(this@HaveNokeActivity).load(R.raw.ring).into(imageView2)
 
             cancelBtn.setOnClickListener {
                 finish()
             }
 
-            //binding.countText.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            binding.countText.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         }
 
         launch {
@@ -63,6 +61,7 @@ class HaveNokeActivity (override val layoutResId: Int = R.layout.activity_have_n
                     CallActivity::class.java
                 ).putExtra("channelId", channelId)
             )
+            finish()
         }
     }
 

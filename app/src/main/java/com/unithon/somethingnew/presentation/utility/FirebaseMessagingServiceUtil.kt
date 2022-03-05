@@ -16,7 +16,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.presentation.call.NokeActivity
-import com.unithon.somethingnew.presentation.main.MainActivity
 
 class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
     val TAG = "FirebaseMessagingServiceUtil.class"
@@ -70,12 +69,13 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
         var uid = remoteMessage.notification!!.body?.split("-")?.get(1)
         var profileUrl = remoteMessage.notification!!.body?.split("-")?.get(2)
 
-        var intent = Intent(this, NokeActivity::class.java)
+        var intent = Intent(this, NokeActivity::class.java).addCategory(Intent.CATEGORY_LAUNCHER)
+            .setAction(Intent.ACTION_MAIN)
         intent.putExtra("channelId", uid)
         intent.putExtra("name", name)
         intent.putExtra("profileUrl", profileUrl)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, id, intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val channelId = "Channel ID"
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)

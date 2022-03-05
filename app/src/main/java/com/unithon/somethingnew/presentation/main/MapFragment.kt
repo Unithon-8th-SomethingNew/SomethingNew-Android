@@ -86,7 +86,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                     Spannable.SPAN_EXCLUSIVE_INCLUSIVE
                 )
 
-                CustomToast.createToast(requireContext(), spannable.toString())
+                CustomToast.createToast(requireContext(), spannable.toString())?.show()
             }
 
 

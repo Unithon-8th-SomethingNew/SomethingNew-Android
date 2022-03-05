@@ -43,6 +43,13 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/anim_circle" />
 
+            <ImageView
+                android:id="@+id/gif_image_view"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="300dp"/>
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image_view"
                 android:layout_width="140dp"
@@ -59,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
                 android:fontFamily="@font/dohyeon_regular"
-                android:text="똑똑,"
+                android:text="똑똑!"
                 android:textColor="@color/black"
                 android:textSize="32sp"
                 android:textStyle="bold"
@@ -82,19 +89,18 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="45dp"
-                android:layout_height="41dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="36dp"
                 android:layout_marginBottom="24dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_ring" />
+                android:layout_gravity="center" />
 
             <TextView
                 android:id="@+id/name_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/dunggeunmo"
                 android:gravity="center"
                 android:lineHeight="23dp"
@@ -118,7 +124,7 @@
                 android:id="@+id/cancelBtn"
                 android:layout_width="133dp"
                 android:layout_height="52dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_friend_cancel" />
