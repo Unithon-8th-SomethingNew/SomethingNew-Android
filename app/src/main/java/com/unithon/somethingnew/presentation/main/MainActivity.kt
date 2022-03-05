@@ -4,6 +4,8 @@ package com.unithon.somethingnew.presentation.main
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayoutMediator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
