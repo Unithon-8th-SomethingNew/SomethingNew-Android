@@ -18,7 +18,6 @@ import com.dnd.sixth.lmsservice.data.preference.PreferenceManager
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.data.network.MainApi
 import com.unithon.somethingnew.data.network.response.FriendResponse
-import com.unithon.somethingnew.presentation.call.CallActivity
 import com.unithon.somethingnew.presentation.havenoke.HaveNokeActivity
 import kotlinx.android.synthetic.main.dialog_add_frend.cancelBtn
 import kotlinx.android.synthetic.main.dialog_add_frend.okBtn
@@ -89,6 +88,7 @@ constructor(private var arrayList: MutableList<FriendResponse>, private val cont
                                     arrayList[position].friendImage
                                 )
                             )
+                            dismiss()
                         }
                     }
                 }.show()
