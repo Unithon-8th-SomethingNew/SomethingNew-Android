@@ -51,10 +51,14 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
                     doneTextView.text = "확인"
                     doneBtn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#007AFF"))
                     locationEditText.setText(it)
+                    doneBtn.isClickable = true
+                    doneBtn.isEnabled = true
                 } else {
                     doneTextView.text = "건너뛰기"
                     doneBtn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#DCDCDC"))
                     locationEditText.text = null
+                    doneBtn.isClickable = false
+                    doneBtn.isEnabled = false
                 }
             }
         }
@@ -78,7 +82,8 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
                                 address.value!!
                             )
 
-                        if(isLoginSuccess) {
+                        if (isLoginSuccess) {
+                            finish()
                             startActivity(Intent(this@LocationActivity, MainActivity::class.java))
                         }
                     }
@@ -91,7 +96,8 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
                                 address.value!!
                             )
 
-                        if(isLoginSuccess) {
+                        if (isLoginSuccess) {
+                            finish()
                             startActivity(Intent(this@LocationActivity, MainActivity::class.java))
                         }
                     }

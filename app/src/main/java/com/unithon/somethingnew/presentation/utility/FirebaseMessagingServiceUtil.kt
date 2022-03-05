@@ -8,6 +8,8 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -34,7 +36,23 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
 
         // FCM을 통해서 전달 받은 정보에 Notification 정보가 있는 경우 알림을 생성한다.
         if (remoteMessage.notification != null) {
-            sendNotification(remoteMessage)
+            // 1. Vibrator 객체를 얻어온 다음
+            try {
+                val vibrator: Vibrator
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as Vibrator
+                    vibrator.vibrate(VibrationEffect.createOneShot(1000, 100))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(1000) // 1초간 진동
+                }
+
+                sendNotification(remoteMessage)
+            } catch (e: Exception) {
+
+            }
         } else {
             Log.d(TAG, "수신 에러: Notification이 비어있습니다.")
         }
@@ -72,7 +90,8 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "Notice", NotificationManager.IMPORTANCE_HIGH)
+            val channel =
+                NotificationChannel(channelId, "Notice", NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(channel)
         }
 

@@ -22,9 +22,9 @@ import java.util.*
 이 TopRecyclerView 는 ViewHolder 의 Binding 을 통해 작성되었습니다.
  */
 
-internal class FrendRecyclerView
+internal class FriendRecyclerView
 constructor(private val arrayList: ArrayList<FriendResponse>, private val context: Context) :
-    RecyclerView.Adapter<FrendRecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<FriendRecyclerView.ViewHolder>() {
 
     private val preferenceManager = PreferenceManager(context)
 

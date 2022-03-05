@@ -74,4 +74,11 @@ class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
 
     }
 
+    override fun onBackPressed() {
+        if(MapFragment.isReceive.value == false) {
+            MapFragment.isReceive.value = true
+            return
+        }
+        super.onBackPressed()
+    }
 }
