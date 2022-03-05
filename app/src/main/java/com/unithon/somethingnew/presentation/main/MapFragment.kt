@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
@@ -71,7 +72,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                     )
                     callableFriendList.postValue(friendList)
                 }
-                delay(30000) // 30초에 한번씩 받아옴
+                delay(5000) // 30초에 한번씩 받아옴
             }
         }
 
@@ -100,7 +101,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                     .into(markerBinding.profileImageView)
 
                 val marker = Marker()
-                marker.position = LatLng(friend.x, friend.y)
+                marker.position = LatLng(friend.y , friend.x)
                 marker.icon = OverlayImage.fromView(markerBinding.root)
                 marker.width = 120
                 marker.height = 180
@@ -110,7 +111,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
 
                     val cameraUpdate = CameraUpdate.scrollTo(
                         LatLng(
-                            friend.x, friend.y
+                            friend.x , friend.y
                         )
                     )
                     naverMap?.moveCamera(cameraUpdate)
@@ -169,18 +170,22 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
                 )
                 naverMap.moveCamera(cameraUpdate)
 
-                val markerBinding = MakerBinding.inflate(layoutInflater)
-                markerBinding.makerUsername.text = preferenceManager.getString(KEY_USER_NAME)
-                Glide.with(requireContext()).load(Uri.parse(preferenceManager.getString(KEY_PROFILE_URL))).centerCrop()
-                    .error(R.drawable.ic_no_phone)
-                    .into(markerBinding.profileImageView)
-
                 val marker = Marker()
-                marker.position = LatLng(latitude, longitude)
-                marker.icon = OverlayImage.fromView(markerBinding.root)
-                marker.width = 120
-                marker.height = 180
-                marker.map = naverMap
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    val markerBinding = MakerBinding.inflate(layoutInflater)
+                    markerBinding.makerUsername.text = preferenceManager.getString(KEY_USER_NAME)
+                    Glide.with(requireContext()).load(Uri.parse(preferenceManager.getString(KEY_PROFILE_URL)))
+                        .into(markerBinding.profileImageView)
+
+                    delay(3000)
+
+                    marker.position = LatLng(latitude, longitude)
+                    marker.icon = OverlayImage.fromView(markerBinding.root)
+                    marker.width = 120
+                    marker.height = 180
+                    marker.map = naverMap
+                }
 
             }
         }

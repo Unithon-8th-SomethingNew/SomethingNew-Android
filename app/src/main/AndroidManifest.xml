@@ -71,11 +71,12 @@
 
         <activity
             android:name=".presentation.login.LocationActivity"
-            android:exported="false" />
+            android:exported="false" >
+        </activity>
+
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">
-
         </activity>
 
         <meta-data
@@ -96,10 +97,8 @@
             android:name=".presentation.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.UnithonProject.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
