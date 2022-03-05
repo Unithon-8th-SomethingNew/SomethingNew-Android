@@ -36,6 +36,7 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
             doneBtn.setOnClickListener(this@LocationActivity)
             deleteBtn.setOnClickListener(this@LocationActivity)
             researchBtn.setOnClickListener(this@LocationActivity)
+            searchIcon.setOnClickListener(this@LocationActivity)
 
             preferenceManager = PreferenceManager(this@LocationActivity)
             activityLauncher =
@@ -73,7 +74,7 @@ class LocationActivity(override val layoutResId: Int = R.layout.activity_locatio
             R.id.delete_btn -> {
                 address.value = ""
             }
-            R.id.location_text_view -> {
+            R.id.search_icon, R.id.location_text_view -> {
                 val intent = Intent(this, AddressApiWebView::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 }

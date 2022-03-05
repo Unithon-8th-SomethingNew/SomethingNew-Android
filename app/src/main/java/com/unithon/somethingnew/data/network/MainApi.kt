@@ -8,6 +8,7 @@ import com.dnd.sixth.lmsservice.data.preference.PreferenceManager.Companion.KEY_
 import com.unithon.somethingnew.App
 import com.unithon.somethingnew.data.model.UserModel
 import com.unithon.somethingnew.data.network.base.BaseApi
+import com.unithon.somethingnew.data.network.request.ChangeStreetModel
 import com.unithon.somethingnew.data.network.request.KnockModel
 import com.unithon.somethingnew.data.network.response.CallableFriendModel
 import kotlinx.coroutines.Dispatchers
@@ -82,4 +83,10 @@ class MainApi : BaseApi() {
         result.isSuccessful
     }
 
+    suspend fun updateStreet(uid: Long, street: String) = withContext(iODispatcher) {
+        val userApi = retrofit.create(ApiService::class.java)
+        userApi.updateStreet(ChangeStreetModel(
+            uid, street
+        ))
+    }
 }

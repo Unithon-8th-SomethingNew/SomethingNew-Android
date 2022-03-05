@@ -189,6 +189,7 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
 
     }
 
+
     override fun onMapReady(naverMap: NaverMap) {
 
         if (ActivityCompat.checkSelfPermission(
@@ -202,7 +203,6 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) :
             return
         }
         this.naverMap = naverMap
-        naverMap.uiSettings.isLocationButtonEnabled = true
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             if (location != null) {
                 val latitude = location.latitude
