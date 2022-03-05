@@ -19,6 +19,7 @@ import com.unithon.somethingnew.R
 import com.unithon.somethingnew.data.network.MainApi
 import com.unithon.somethingnew.data.network.response.FriendResponse
 import com.unithon.somethingnew.presentation.call.CallActivity
+import com.unithon.somethingnew.presentation.havenoke.HaveNokeActivity
 import kotlinx.android.synthetic.main.dialog_add_frend.cancelBtn
 import kotlinx.android.synthetic.main.dialog_add_frend.okBtn
 import kotlinx.android.synthetic.main.dialog_call.*
@@ -76,13 +77,18 @@ constructor(private var arrayList: MutableList<FriendResponse>, private val cont
                             context.startActivity(
                                 Intent(
                                     context,
-                                    CallActivity::class.java
+                                    HaveNokeActivity::class.java
                                 ).putExtra(
                                     "channelId",
                                     preferenceManager.getLong(PreferenceManager.KEY_UID).toString()
+                                ).putExtra(
+                                        "name",
+                                    arrayList[position].friendName
+                                ).putExtra(
+                                        "profileUrl",
+                                    arrayList[position].friendImage
                                 )
                             )
-                            dismiss()
                         }
                     }
                 }.show()

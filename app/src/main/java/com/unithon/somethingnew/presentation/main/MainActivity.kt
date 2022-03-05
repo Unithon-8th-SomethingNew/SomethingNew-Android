@@ -49,6 +49,9 @@ class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
                     Manifest.permission.RECORD_AUDIO,
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
+                    //Manifest.permission.BLUETOOTH,
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                    //Manifest.permission.BLUETOOTH_SCAN
                 )
                 .check()
         } else {
