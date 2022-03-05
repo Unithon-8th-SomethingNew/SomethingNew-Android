@@ -46,6 +46,8 @@
             <ImageView
                 android:id="@+id/gif_image_view"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="13dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_height="300dp"/>
