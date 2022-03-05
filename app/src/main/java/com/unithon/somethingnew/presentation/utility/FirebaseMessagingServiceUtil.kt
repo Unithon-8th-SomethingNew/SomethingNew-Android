@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.unithon.somethingnew.R
+import com.unithon.somethingnew.presentation.call.NokeActivity
 import com.unithon.somethingnew.presentation.main.MainActivity
 
 class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
@@ -64,12 +65,12 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
      */
     private fun sendNotification(remoteMessage: RemoteMessage) {
         val id = 0
-        var name = remoteMessage.notification!!.title?.split("-")?.get(0)
-        var body = remoteMessage.notification!!.body
-        var uid = remoteMessage.notification!!.title?.split("-")?.get(1)
-        var profileUrl = remoteMessage.notification!!.title?.split("-")?.get(2)
+        var title = remoteMessage.notification!!.title
+        var name = remoteMessage.notification!!.body?.split("-")?.get(0)
+        var uid = remoteMessage.notification!!.body?.split("-")?.get(1)
+        var profileUrl = remoteMessage.notification!!.body?.split("-")?.get(2)
 
-        var intent = Intent(this, MainActivity::class.java)
+        var intent = Intent(this, NokeActivity::class.java)
         intent.putExtra("channelId", uid)
         intent.putExtra("name", name)
         intent.putExtra("profileUrl", profileUrl)
@@ -80,8 +81,8 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("${name}님이 찾아왔어요!")
-            .setContentText(body)
+            .setContentTitle(title)
+            .setContentText("${name}님이 찾아왔어요!")
             .setAutoCancel(true)
             .setSound(soundUri)
             .setContentIntent(pendingIntent)

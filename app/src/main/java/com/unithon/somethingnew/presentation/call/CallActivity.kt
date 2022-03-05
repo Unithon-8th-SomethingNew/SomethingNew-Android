@@ -30,6 +30,8 @@ class CallActivity(override val layoutResId: Int = R.layout.activity_call) :
         setStatusBarTransparent(this, binding.rootView)
 
 
+        showSnackBar("상대방을 기다리고 있어요!")
+
         with(binding) {
             backBtn.setOnClickListener {
                 showToast("통화가 종료되었어요.")

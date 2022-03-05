@@ -15,4 +15,6 @@ data class CallableFriendModel(
     val y: Double,
     @SerializedName("fcmToken")
     val fcmToken: String,
+    /*@SerializedName("bellCount")
+    val bellCount: Int,*/
 )

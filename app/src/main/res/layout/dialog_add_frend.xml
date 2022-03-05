@@ -48,7 +48,7 @@
         android:id="@+id/is_vaild"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="해당하는 아이디가 없어요."
+        android:text="이미 친구이거나, 해당하는 아이디가 없어요."
         android:textColor="#F05990"
         android:textSize="12sp"
         android:visibility="invisible"
