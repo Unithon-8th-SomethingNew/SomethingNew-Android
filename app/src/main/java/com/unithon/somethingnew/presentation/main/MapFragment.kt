@@ -39,7 +39,6 @@ import kotlin.coroutines.CoroutineContext
 
 class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseFragment<FragmentMapBinding>(),
     OnMapReadyCallback, CoroutineScope {
-
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -54,7 +53,8 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
         preferenceManager = PreferenceManager(requireContext())
 
         launch(Dispatchers.IO) {
-            val friendList = MainApi().getCallableFriendList(preferenceManager.getLong(PreferenceManager.KEY_UID))
+            val friendList = MainApi().getCallableFriendList(preferenceManager.getLong(
+                PreferenceManager.KEY_UID))
             callableFriendList.postValue(friendList)
             Log.d("ddddd", friendList.toString())
         }
@@ -62,7 +62,6 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
         callableFriendList.observe(this) {
 
         }
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         val fm = parentFragmentManager
@@ -112,5 +111,4 @@ class MapFragment(override val layoutResId: Int = R.layout.fragment_map) : BaseF
         }
 
     }
-
 }
