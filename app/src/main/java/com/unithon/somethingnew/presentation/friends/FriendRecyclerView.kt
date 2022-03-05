@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,11 +63,13 @@ constructor(private var arrayList: MutableList<FriendResponse>, private val cont
                 Dialog(context).apply {
                     setContentView(R.layout.dialog_call)
                     window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    name_text_view.text = "${arrayList[viewHolder.adapterPosition].friendName} 님에게\n놀러갈까요?"
+                    name_text_view.text =
+                        "${arrayList[viewHolder.adapterPosition].friendName} 님에게\n놀러갈까요?"
 
                     cancelBtn.setOnClickListener {
                         this.dismiss()
                     }
+                    Log.d("id", arrayList[viewHolder.adapterPosition].friendId.toString())
                     okBtn.setOnClickListener {
                         CoroutineScope(Dispatchers.IO).launch {
                             MainApi().sendFcm(
@@ -81,10 +84,10 @@ constructor(private var arrayList: MutableList<FriendResponse>, private val cont
                                     "channelId",
                                     preferenceManager.getLong(PreferenceManager.KEY_UID).toString()
                                 ).putExtra(
-                                        "name",
+                                    "name",
                                     arrayList[position].friendName
                                 ).putExtra(
-                                        "profileUrl",
+                                    "profileUrl",
                                     arrayList[position].friendImage
                                 )
                             )
@@ -92,13 +95,8 @@ constructor(private var arrayList: MutableList<FriendResponse>, private val cont
                         }
                     }
                 }.show()
-
-
             }
-
         }
-
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
