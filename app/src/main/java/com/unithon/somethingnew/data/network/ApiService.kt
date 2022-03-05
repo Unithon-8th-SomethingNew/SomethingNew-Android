@@ -2,6 +2,7 @@ package com.unithon.somethingnew.data.network
 
 import com.unithon.somethingnew.data.model.UserModel
 import com.unithon.somethingnew.data.network.request.KnockModel
+import com.unithon.somethingnew.data.network.response.CallableFriendModel
 import com.unithon.somethingnew.data.network.response.FriendResponse
 import com.unithon.somethingnew.data.network.response.LoginResponse
 import retrofit2.Response
@@ -22,4 +23,7 @@ interface ApiService {
 
     @GET("/knock")
     suspend fun sendFcm(@Body knockModel: KnockModel)
+
+    @GET("/user/location/{id}")
+    suspend fun getCallableFriendList(@Path("id") uid: Long): Response<List<CallableFriendModel>>
 }

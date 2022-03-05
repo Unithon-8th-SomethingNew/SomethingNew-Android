@@ -9,6 +9,7 @@ import com.unithon.somethingnew.App
 import com.unithon.somethingnew.data.model.UserModel
 import com.unithon.somethingnew.data.network.base.BaseApi
 import com.unithon.somethingnew.data.network.request.KnockModel
+import com.unithon.somethingnew.data.network.response.CallableFriendModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -69,6 +70,11 @@ class MainApi : BaseApi() {
         val friendRequestApi = retrofit.create(ApiService::class.java)
         friendRequestApi.FriendRequest(myUid, otherUid)
         true
+    }
+
+    suspend fun getCallableFriendList(myUid: Long): List<CallableFriendModel>? = withContext(iODispatcher) {
+        val friendRequestApi = retrofit.create(ApiService::class.java)
+        friendRequestApi.getCallableFriendList(myUid).body()
     }
 
 }
