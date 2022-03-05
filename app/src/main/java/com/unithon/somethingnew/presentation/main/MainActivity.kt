@@ -4,24 +4,22 @@ package com.unithon.somethingnew.presentation.main
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.unithon.somethingnew.R
 import com.unithon.somethingnew.databinding.ActivityMainBinding
+import com.unithon.somethingnew.presentation.adapter.viewpager.ContentsPagerAdapter
 import com.unithon.somethingnew.presentation.base.BaseActivity
-import com.unithon.somethingnew.presentation.friends.FriendsFragment
-import com.unithon.somethingnew.presentation.setting.SettingsFragment
 import com.unithon.somethingnew.presentation.utility.setStatusBarTransparent
-import androidx.viewpager.widget.PagerAdapter
-import com.unithon.somethingnew.presentation.adapter.viewpager.MyPagerAdapter
 
 
 class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
     BaseActivity<ActivityMainBinding>() {
     private var waitTime = 0L
+    private var mContentPagerAdapter: ContentsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +65,28 @@ class MainActivity(override val layoutResId: Int = R.layout.activity_main) :
 
 
         with(binding) {
-            val pagerAdapter = MyPagerAdapter(supportFragmentManager)
-            viewPager.adapter = pagerAdapter
+
+
+            mContentPagerAdapter = ContentsPagerAdapter(
+                supportFragmentManager, tabLayout.tabCount
+            )
+
+            viewPager.setAdapter(mContentPagerAdapter)
+
+
+
+            viewPager.addOnPageChangeListener(
+                TabLayoutOnPageChangeListener(tabLayout)
+            )
+
+            tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    viewPager.setCurrentItem(tab.position)
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab) {}
+                override fun onTabReselected(tab: TabLayout.Tab) {}
+            })
         }
 
     }
